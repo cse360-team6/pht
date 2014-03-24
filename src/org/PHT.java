@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 
-public class Main {
+public class PHT {
 
 	/**
 	 * @param args
