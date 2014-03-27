@@ -1,16 +1,17 @@
-import java.util.ArrayList;
+package org.pht;
 
+import org.pht.ui.*;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
-
-public class PHT {
+public class PersonalHealthTracker {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) 
 	{
-		PhysicalActivity physical = new PhysicalActivity();
+		PhysicalActivityFrame physical = new PhysicalActivityFrame();
 		physical.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		physical.setVisible(true);
 		
