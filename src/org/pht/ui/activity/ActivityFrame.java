@@ -1,4 +1,4 @@
-package org.pht.ui;
+package org.pht.ui.activity;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -18,50 +18,50 @@ public class ActivityFrame extends JFrame {
     protected String memoStored, typeStored;
     protected Date dateAdded = new Date();
     protected static JButton ok, cancel;
-    protected JComboBox activities;
+    protected JComboBox<String> activities;
     private JPanel dropDown = new JPanel(new FlowLayout());
     private JPanel buttons = new JPanel();
 
     // Constructors
     public ActivityFrame(String[] options, String frameTitle, JPanel activity) {
-	ok = new JButton("OK");
-	cancel = new JButton("Cancel");
-
-	activities = new JComboBox(options);
-	activities.setSelectedIndex(0);
-	activities.setPreferredSize(new Dimension(220, 25));
-
-	dropDown.add(activities);
-	buttons.add(ok);
-	buttons.add(cancel);
-
-	cancel.addActionListener(new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-		if (e.getSource() instanceof JButton) {
-		    dispose();
-		}
-	    }
-	});
-
-	add(dropDown, BorderLayout.NORTH);
-	add(activity);
-	add(buttons, BorderLayout.SOUTH);
-
-	setSize(250, 300);
+		ok = new JButton("OK");
+		cancel = new JButton("Cancel");
+	
+		activities = new JComboBox<String>(options);
+		activities.setSelectedIndex(0);
+		activities.setPreferredSize(new Dimension(220, 25));
+	
+		dropDown.add(activities);
+		buttons.add(ok);
+		buttons.add(cancel);
+	
+		cancel.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+				if (e.getSource() instanceof JButton) {
+				    dispose();
+				}
+		    }
+		});
+	
+		add(dropDown, BorderLayout.NORTH);
+		add(activity);
+		add(buttons, BorderLayout.SOUTH);
+	
+		setSize(250, 300);
     }
 
     // Accessors
     public String getMemo() {
-	return memoStored;
+    	return memoStored;
     }
 
     public String getActivityType() {
-	return typeStored;
+    	return typeStored;
     }
 
     public Date getDate() {
-	// For potential use in charts
-	return dateAdded;
+    	// For potential use in charts
+    	return dateAdded;
     }
 }
