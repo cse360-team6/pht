@@ -12,93 +12,104 @@ package org.pht.datalib;
 
 public class PHTDataElement {
 
-    // Constants and Class Variables
-    protected int day, month, year, heartBPM;
-    protected double bloodPressure, bloodSugar;
-    protected String fileForm;
+	// Constants and Class Variables
+	protected int day, month, year, restingHeartRate, systolic, diastolic;
+	protected double bloodSugar;
+	protected String fileForm;
 
-    // Constructor
-    public PHTDataElement(int month, int day, int year, int heartBPM,
-	    double bloodPressure, double bloodSugar) {
-	this.month = month;
-	this.day = day;
-	this.year = year;
-	this.heartBPM = heartBPM;
-	this.bloodPressure = bloodPressure;
-	this.bloodSugar = bloodSugar;
-	this.fileForm = this.toString();
-    }
+	// Constructors
+	public PHTDataElement() {
+	}
 
-    public void setDate(int month, int day, int year) {
-	this.month = month;
-	this.day = day;
-	this.year = year;
-    }
-    
-    
-    public int getDay() {
-	return day;
-    }
+	public PHTDataElement(int month, int day, int year, int restingHeartRate,
+			int systolic, int diastolic, double bloodSugar) {
+		this.month = month;
+		this.day = day;
+		this.year = year;
+		this.restingHeartRate = restingHeartRate;
+		this.systolic = systolic;
+		this.diastolic = diastolic;
+		this.bloodSugar = bloodSugar;
+		this.fileForm = this.toString();
+	}
 
-    public int getMonth() {
-	return month;
-    }
+	public int getDay() {
+		return day;
+	}
 
-    public int getYear() {
-	return year;
-    }
+	public int getMonth() {
+		return month;
+	}
 
-    public double getBloodPressure() {
-	return bloodPressure;
-    }
+	public int getYear() {
+		return year;
+	}
 
-    public double getBloodSugar() {
-	return bloodSugar;
-    }
+	public int getSystolic() {
+		return systolic;
+	}
 
-    public int getHeartBPM() {
-	return heartBPM;
-    }
+	public int getDiastolic() {
+		return diastolic;
+	}
 
-    public String getFileForm() {
-	return fileForm;
-    }
+	public double getBloodSugar() {
+		return bloodSugar;
+	}
 
-    public void setDay(int day) {
-	this.day = day;
-    }
+	public int getRestingHeartRate() {
+		return restingHeartRate;
+	}
 
-    public void setMonth(int month) {
-	this.month = month;
-    }
+	public String getFileForm() {
+		return fileForm;
+	}
 
-    public void setYear(int year) {
-	this.year = year;
-    }
+	public void setDate(int month, int day, int year) {
+		this.month = month;
+		this.day = day;
+		this.year = year;
+	}
 
-    public void setBloodPressure(double bloodPressure) {
-	this.bloodPressure = bloodPressure;
-    }
+	public void setDay(int day) {
+		this.day = day;
+	}
 
-    public void setBloodSugar(double bloodSugar) {
-	this.bloodSugar = bloodSugar;
-    }
+	public void setMonth(int month) {
+		this.month = month;
+	}
 
-    public void setHeartBPM(int heartBPM) {
-	this.heartBPM = heartBPM;
-    }
+	public void setYear(int year) {
+		this.year = year;
+	}
 
-    public void setFileForm(String fileForm) {
-	this.fileForm = fileForm;
-    }
+	public void setSystolic(int systolic) {
+		this.systolic = systolic;
+	}
 
-    public void print(Object obj) {
-	System.err.println(obj);
-    }
+	public void setDiastolic(int diastolic) {
+		this.diastolic = diastolic;
+	}
 
-    public String toString() {
-	return (month + "\n" + day + "\n" + year + "\n" + heartBPM + "\n"
-		+ bloodPressure + "\n" + bloodSugar + "\n");
-    }
+	public void setBloodSugar(double bloodSugar) {
+		this.bloodSugar = bloodSugar;
+	}
+
+	public void setrestingHeartRate(int restingHeartRate) {
+		this.restingHeartRate = restingHeartRate;
+	}
+
+	public void setFileForm(String fileForm) {
+		this.fileForm = fileForm;
+	}
+
+	public void print(Object obj) {
+		System.err.println(obj);
+	}
+
+	public String toString() {
+		return (month + "\n" + day + "\n" + year + "\n" + restingHeartRate
+				+ "\n" + systolic + "\n" + diastolic + "\n" + bloodSugar + "\n");
+	}
 
 }
