@@ -8,4 +8,4 @@
 
 -Definately needs formatting, but all of the methods work
 
--All of the functions accept an array of either physical or health activity type. Because I made the activity panels poorly, there will need to be a panel for each type of information stored (i.e. cardio, strength, blood pressure, heart rate). The functions will search through said array, find if they are within the corresponding day, week, or month, and then total the values of each, storing them in corresponding local variables for use in the charts. It is clunky, but it will work if the activities are handled in such a way.
+-All of the functions accept an arraylist of either physical or health activity type. Because I made the activity panels poorly, there will need to be a panel for each type of information stored (i.e. cardio, strength, blood pressure, heart rate). The functions will search through said arraylist, find if they are within the corresponding day, week, or month, and then total the values of each, storing them in corresponding local variables for use in the charts. It is clunky, but it will work if the activities are handled in such a way.

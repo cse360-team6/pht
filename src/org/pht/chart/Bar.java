@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 public class Bar {
 
-	public Scene dayPhysicalBar(PhysicalActivity[] activity, Calendar currentDate) {
+	public Scene dayPhysicalBar(ArrayList<PhysicalActivity> activity, Calendar currentDate) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -19,8 +19,8 @@ public class Bar {
 		xAxis.setLabel("Type");
 		yAxis.setLabel("Minutes");
 
-		for(int i = 0; i < activity.length; i++) {		
-			if((activity[i].getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && activity[i].getDate().get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)) || (activity[i].getDate().get(Calendar.MONTH) > currentDate.get(Calendar.MONTH))) {
+		for(int i = 0; i < activity.size(); i++) {		
+			if((activity.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && activity.get(i).getDate().get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)) || (activity.get(i).getDate().get(Calendar.MONTH) > currentDate.get(Calendar.MONTH))) {
 				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
 					dpb.setTitle("No input data for current day");
 					((Group) scene.getRoot()).getChildren().add(dpb);
@@ -28,21 +28,21 @@ public class Bar {
 				}
 			}		
 
-			if(activity[i].getDate().get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH) && activity[i].getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
-				if(activity[i].getActivityType() == "Cardio Workout") {
-					cardio += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+			if(activity.get(i).getDate().get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH) && activity.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
+				if(activity.get(i).getActivityType() == "Cardio Workout") {
+					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Strength Workout") {
-					strength += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+				if(activity.get(i).getActivityType() == "Strength Workout") {
+					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Work Hours") {
-					work += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Work Hours") {
+					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 
-				if(activity[i].getActivityType() == "Time Slept") {
-					sleep += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Time Slept") {
+					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 			}
 		}
@@ -62,7 +62,7 @@ public class Bar {
 		return (scene);
 	}
 
-	public Scene dayPhysicalBar(PhysicalActivity[] activity, int day, int month) {
+	public Scene dayPhysicalBar(ArrayList<PhysicalActivity> activity, int day, int month) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -72,8 +72,8 @@ public class Bar {
 		xAxis.setLabel("Type");
 		yAxis.setLabel("Minutes");
 
-		for(int i = 0; i < activity.length; i++) {
-			if((activity[i].getDate().get(Calendar.MONTH) > month || (activity[i].getDate().get(Calendar.MONTH) == month && activity[i].getDate().get(Calendar.DATE) > day))) {
+		for(int i = 0; i < activity.size(); i++) {
+			if((activity.get(i).getDate().get(Calendar.MONTH) > month || (activity.get(i).getDate().get(Calendar.MONTH) == month && activity.get(i).getDate().get(Calendar.DATE) > day))) {
 				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
 					sdpb.setTitle("No input data for specified day");
 					((Group) scene.getRoot()).getChildren().add(sdpb);
@@ -81,21 +81,21 @@ public class Bar {
 				}
 			}
 
-			if(activity[i].getDate().get(Calendar.MONTH) == month && activity[i].getDate().get(Calendar.DATE) == day) {
-				if(activity[i].getActivityType() == "Cardio Workout") {
-					cardio += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+			if(activity.get(i).getDate().get(Calendar.MONTH) == month && activity.get(i).getDate().get(Calendar.DATE) == day) {
+				if(activity.get(i).getActivityType() == "Cardio Workout") {
+					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Strength Workout") {
-					strength += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+				if(activity.get(i).getActivityType() == "Strength Workout") {
+					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Work Hours") {
-					work += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Work Hours") {
+					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 
-				if(activity[i].getActivityType() == "Time Slept") {
-					sleep += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Time Slept") {
+					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 			}
 		}
@@ -115,7 +115,7 @@ public class Bar {
 		return (scene);
 	}
 
-	public Scene dayHealthBar(HealthInformation[] health, Calendar currentDate) {
+	public Scene dayHealthBar(ArrayList<HealthInformation> health, Calendar currentDate) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -125,8 +125,8 @@ public class Bar {
 		xAxis.setLabel("Type");
 		yAxis.setLabel("Value");
 
-		for(int i = 0; i < health.length; i++) {
-			if((health[i].getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && health[i].getDate().get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)) || (health[i].getDate().get(Calendar.MONTH) > currentDate.get(Calendar.MONTH))) {
+		for(int i = 0; i < health.size(); i++) {
+			if((health.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && health.get(i).getDate().get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)) || (health.get(i).getDate().get(Calendar.MONTH) > currentDate.get(Calendar.MONTH))) {
 				if(systolic == 0 && diastolic == 0 && bloodSugar == 0 && heartRate == 0) {
 					dhb.setTitle("No input data for current day");
 					((Group) scene.getRoot()).getChildren().add(dhb);
@@ -134,18 +134,18 @@ public class Bar {
 				}
 			}		
 
-			if(health[i].getDate().get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH) && health[i].getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
-				if(health[i].getActivityType() == "Blood Pressure") {
-					systolic += health[i].getSystolic();
-					diastolic += health[i].getDiastolic();
+			if(health.get(i).getDate().get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH) && health.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
+				if(health.get(i).getActivityType() == "Blood Pressure") {
+					systolic += health.get(i).getSystolic();
+					diastolic += health.get(i).getDiastolic();
 				}
 
-				if(health[i].getActivityType() == "Blood Sugar") {
-					bloodSugar += health[i].getBloodSugar();				
+				if(health.get(i).getActivityType() == "Blood Sugar") {
+					bloodSugar += health.get(i).getBloodSugar();				
 				}
 
-				if(health[i].getActivityType() == "Heart Rate") {
-					heartRate += health[i].getHeartRate();
+				if(health.get(i).getActivityType() == "Heart Rate") {
+					heartRate += health.get(i).getHeartRate();
 				}			
 			}
 		}
@@ -165,7 +165,7 @@ public class Bar {
 		return (scene);
 	}
 
-	public Scene dayHealthBar(HealthInformation[] health, int day, int month) {
+	public Scene dayHealthBar(ArrayList<HealthInformation> health, int day, int month) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -175,8 +175,8 @@ public class Bar {
 		xAxis.setLabel("Type");
 		yAxis.setLabel("Value");
 
-		for(int i = 0; i < health.length; i++) {
-			if((health[i].getDate().get(Calendar.MONTH) > month || (health[i].getDate().get(Calendar.MONTH) == month && health[i].getDate().get(Calendar.DATE) > day))) {
+		for(int i = 0; i < health.size(); i++) {
+			if((health.get(i).getDate().get(Calendar.MONTH) > month || (health.get(i).getDate().get(Calendar.MONTH) == month && health.get(i).getDate().get(Calendar.DATE) > day))) {
 				if(systolic == 0 && diastolic == 0 && bloodSugar == 0 && heartRate == 0) {
 					sdhb.setTitle("No input data for specified day");
 					((Group) scene.getRoot()).getChildren().add(sdhb);
@@ -184,18 +184,18 @@ public class Bar {
 				}
 			}
 
-			if(health[i].getDate().get(Calendar.MONTH) == month && health[i].getDate().get(Calendar.DATE) == day) {
-				if(health[i].getActivityType() == "Blood Pressure") {
-					systolic += health[i].getSystolic();
-					diastolic += health[i].getDiastolic();
+			if(health.get(i).getDate().get(Calendar.MONTH) == month && health.get(i).getDate().get(Calendar.DATE) == day) {
+				if(health.get(i).getActivityType() == "Blood Pressure") {
+					systolic += health.get(i).getSystolic();
+					diastolic += health.get(i).getDiastolic();
 				}
 
-				if(health[i].getActivityType() == "Blood Sugar") {
-					bloodSugar += health[i].getBloodSugar();				
+				if(health.get(i).getActivityType() == "Blood Sugar") {
+					bloodSugar += health.get(i).getBloodSugar();				
 				}
 
-				if(health[i].getActivityType() == "Heart Rate") {
-					heartRate += health[i].getHeartRate();
+				if(health.get(i).getActivityType() == "Heart Rate") {
+					heartRate += health.get(i).getHeartRate();
 				}
 			}
 		}
@@ -215,7 +215,7 @@ public class Bar {
 		return (scene);
 	}
 
-	public Scene weekPhysicalBar(PhysicalActivity[] activity, Calendar currentWeek) {
+	public Scene weekPhysicalBar(ArrayList<PhysicalActivity> activity, Calendar currentWeek) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -231,8 +231,8 @@ public class Bar {
 			return (scene);
 		}
 
-		for(int i = 0; i < activity.length; i++) {
-			if(activity[i].getDate().get(Calendar.MONTH) > currentWeek.get(Calendar.MONTH) || (activity[i].getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && activity[i].getDate().get(Calendar.WEEK_OF_MONTH) > currentWeek.get(Calendar.WEEK_OF_MONTH))) {
+		for(int i = 0; i < activity.size(); i++) {
+			if(activity.get(i).getDate().get(Calendar.MONTH) > currentWeek.get(Calendar.MONTH) || (activity.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) > currentWeek.get(Calendar.WEEK_OF_MONTH))) {
 				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
 					wpb.setTitle("No input data for current week");
 					((Group) scene.getRoot()).getChildren().add(wpb);
@@ -240,21 +240,21 @@ public class Bar {
 				}
 			}
 
-			if(activity[i].getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && activity[i].getDate().get(Calendar.WEEK_OF_MONTH) == currentWeek.get(Calendar.WEEK_OF_MONTH)) {
-				if(activity[i].getActivityType() == "Cardio Workout") { 
-					cardio += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+			if(activity.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) == currentWeek.get(Calendar.WEEK_OF_MONTH)) {
+				if(activity.get(i).getActivityType() == "Cardio Workout") { 
+					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Strength Workout") {
-					strength += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+				if(activity.get(i).getActivityType() == "Strength Workout") {
+					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Work Hours") {
-					work += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Work Hours") {
+					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 
-				if(activity[i].getActivityType() == "Time Slept") {
-					sleep += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Time Slept") {
+					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 			}
 		}
@@ -273,7 +273,7 @@ public class Bar {
 
 	}
 
-	public Scene weekHealthBar(HealthInformation[] health, Calendar currentWeek) {
+	public Scene weekHealthBar(ArrayList<HealthInformation> health, Calendar currentWeek) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -289,8 +289,8 @@ public class Bar {
 			return (scene);
 		}
 
-		for(int i = 0; i < health.length; i++) {
-			if(health[i].getDate().get(Calendar.MONTH) > currentWeek.get(Calendar.MONTH) || (health[i].getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && health[i].getDate().get(Calendar.WEEK_OF_MONTH) > currentWeek.get(Calendar.WEEK_OF_MONTH))) {
+		for(int i = 0; i < health.size(); i++) {
+			if(health.get(i).getDate().get(Calendar.MONTH) > currentWeek.get(Calendar.MONTH) || (health.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && health.get(i).getDate().get(Calendar.WEEK_OF_MONTH) > currentWeek.get(Calendar.WEEK_OF_MONTH))) {
 				if(systolic == 0 && diastolic == 0 && bloodSugar == 0 && heartRate == 0) {
 					whb.setTitle("No input data for current week");
 					((Group) scene.getRoot()).getChildren().add(whb);
@@ -298,18 +298,18 @@ public class Bar {
 				}
 			}
 
-			if(health[i].getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && health[i].getDate().get(Calendar.WEEK_OF_MONTH) == currentWeek.get(Calendar.WEEK_OF_MONTH)) {
-				if(health[i].getActivityType() == "Blood Pressure") {
-					systolic += health[i].getSystolic();
-					diastolic += health[i].getDiastolic();
+			if(health.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && health.get(i).getDate().get(Calendar.WEEK_OF_MONTH) == currentWeek.get(Calendar.WEEK_OF_MONTH)) {
+				if(health.get(i).getActivityType() == "Blood Pressure") {
+					systolic += health.get(i).getSystolic();
+					diastolic += health.get(i).getDiastolic();
 				}
 
-				if(health[i].getActivityType() == "Blood Sugar") {
-					bloodSugar += health[i].getBloodSugar();				
+				if(health.get(i).getActivityType() == "Blood Sugar") {
+					bloodSugar += health.get(i).getBloodSugar();				
 				}
 
-				if(health[i].getActivityType() == "Heart Rate") {
-					heartRate += health[i].getHeartRate();
+				if(health.get(i).getActivityType() == "Heart Rate") {
+					heartRate += health.get(i).getHeartRate();
 				}
 			}
 		}
@@ -329,7 +329,7 @@ public class Bar {
 		return (scene);
 	}
 
-	public Scene monthPhysicalBar(PhysicalActivity[] activity, Calendar currentMonth) {
+	public Scene monthPhysicalBar(ArrayList<PhysicalActivity> activity, Calendar currentMonth) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -345,8 +345,8 @@ public class Bar {
 			return (scene);
 		}
 
-		for(int i = 0; i < activity.length; i++) {
-			if(activity[i].getDate().get(Calendar.MONTH) > currentMonth.get(Calendar.MONTH)) {
+		for(int i = 0; i < activity.size(); i++) {
+			if(activity.get(i).getDate().get(Calendar.MONTH) > currentMonth.get(Calendar.MONTH)) {
 				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
 					mpb.setTitle("No input data for current month");
 					((Group) scene.getRoot()).getChildren().add(mpb);
@@ -354,21 +354,21 @@ public class Bar {
 				}
 			}
 
-			if(activity[i].getDate().get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH)) {
-				if(activity[i].getActivityType() == "Cardio Workout") { 
-					cardio += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+			if(activity.get(i).getDate().get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH)) {
+				if(activity.get(i).getActivityType() == "Cardio Workout") { 
+					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Strength Workout") {
-					strength += ((activity[i].getHours() * 60) + activity[i].getMinutes());				
+				if(activity.get(i).getActivityType() == "Strength Workout") {
+					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
 				}
 
-				if(activity[i].getActivityType() == "Work Hours") {
-					work += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Work Hours") {
+					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 
-				if(activity[i].getActivityType() == "Time Slept") {
-					sleep += ((activity[i].getHours() * 60) + activity[i].getMinutes());
+				if(activity.get(i).getActivityType() == "Time Slept") {
+					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
 				}
 			}
 		}
@@ -386,7 +386,7 @@ public class Bar {
 		return (scene);	
 	}
 
-	public Scene monthHealthBar(HealthInformation[] health, Calendar currentMonth) {
+	public Scene monthHealthBar(ArrayList<HealthInformation> health, Calendar currentMonth) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -402,8 +402,8 @@ public class Bar {
 			return (scene);
 		}
 
-		for(int i = 0; i < health.length; i++) {
-			if(health[i].getDate().get(Calendar.MONTH) > currentMonth.get(Calendar.MONTH)) {
+		for(int i = 0; i < health.size(); i++) {
+			if(health.get(i).getDate().get(Calendar.MONTH) > currentMonth.get(Calendar.MONTH)) {
 				if(systolic == 0 && diastolic == 0 && bloodSugar == 0 && heartRate == 0) {
 					mhb.setTitle("No input data for current month");
 					((Group) scene.getRoot()).getChildren().add(mhb);
@@ -411,18 +411,18 @@ public class Bar {
 				}
 			}
 
-			if(health[i].getDate().get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH)) {
-				if(health[i].getActivityType() == "Blood Pressure") {
-					systolic += health[i].getSystolic();
-					diastolic += health[i].getDiastolic();
+			if(health.get(i).getDate().get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH)) {
+				if(health.get(i).getActivityType() == "Blood Pressure") {
+					systolic += health.get(i).getSystolic();
+					diastolic += health.get(i).getDiastolic();
 				}
 
-				if(health[i].getActivityType() == "Blood Sugar") {
-					bloodSugar += health[i].getBloodSugar();				
+				if(health.get(i).getActivityType() == "Blood Sugar") {
+					bloodSugar += health.get(i).getBloodSugar();				
 				}
 
-				if(health[i].getActivityType() == "Heart Rate") {
-					heartRate += health[i].getHeartRate();
+				if(health.get(i).getActivityType() == "Heart Rate") {
+					heartRate += health.get(i).getHeartRate();
 				}
 			}
 		}
