@@ -1,4 +1,4 @@
-package org.pht.datalib;
+package org.pht.quota;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,16 +10,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-public class PHTDataFile
+public class PHTQuotaFile
 {
     private final Charset CHARSET = Charset.forName("UTF-8");
     private final Path FILE_PATH = Paths.get(System.getProperty("user.home")
-            + "/PHT/phtdata.txt");
+            + "/PHT/phtquota.txt");
     private final Path FOLDER_PATH = Paths.get(System.getProperty("user.home")
             + "/PHT");
     private File file;
 
-    public PHTDataFile()
+    public PHTQuotaFile()
     {
         try {
             Files.createDirectories(FOLDER_PATH);
@@ -31,28 +31,20 @@ public class PHTDataFile
         }
     }
 
-    public boolean loadDataTo(PHTData phtData)
+    public boolean loadDataTo(PHTQuota q)
     {
         try (BufferedReader br = Files.newBufferedReader(
                 this.FILE_PATH.toAbsolutePath(), CHARSET)) {
             String line = null;
-            int month, day, year, strengthHours, cardioHours, workHours, sleepHours, restingHeartRate, systolic, diastolic;
-            double bloodSugar;
-            while ((line = br.readLine()) != null) {
-                month = new Integer(line);
-                day = new Integer(br.readLine());
-                year = new Integer(br.readLine());
-                strengthHours = new Integer(br.readLine());
-                cardioHours = new Integer(br.readLine());
-                workHours = new Integer(br.readLine());
-                sleepHours = new Integer(br.readLine());
-                restingHeartRate = new Integer(br.readLine());
-                systolic = new Integer(br.readLine());
-                diastolic = new Integer(br.readLine());
-                bloodSugar = new Double(br.readLine());
-                phtData.add(month, day, year, strengthHours, cardioHours,
-                        workHours, sleepHours, restingHeartRate, systolic,
-                        diastolic, bloodSugar);
+            if ((line = br.readLine()) != null) {
+                q.setStrengthGoal(new Integer(line));
+                q.setCardioGoal(new Integer(br.readLine()));
+                q.setWorkGoal(new Integer(br.readLine()));
+                q.setSleepGoal(new Integer(br.readLine()));
+                q.setRestingHeartRateGoal(new Integer(br.readLine()));
+                q.setSystolicGoal(new Integer(br.readLine()));
+                q.setDiastolicGoal(new Integer(br.readLine()));
+                q.setBloodSugarGoal(new Double(br.readLine()));
             }
             br.close();
             return true;
@@ -61,19 +53,17 @@ public class PHTDataFile
         }
     }
 
-    public boolean saveDataFrom(PHTData phtData)
+    public boolean saveDataFrom(PHTQuota q)
     {
         try {
             BufferedWriter bw = Files.newBufferedWriter(this.FILE_PATH,
                     CHARSET, StandardOpenOption.TRUNCATE_EXISTING);
-            String tmp;
-            for (int i = 0; i < phtData.size(); i++) {
-                tmp = phtData.get(i).toString();
-                bw.write(tmp, 0, tmp.length());
-            }
+            String str = q.toString();
+            bw.write(str, 0, str.length());
             bw.close();
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }

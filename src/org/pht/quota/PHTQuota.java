@@ -12,97 +12,178 @@ public class PHTQuota
 {
 
     // Health goals
-    private int restingHeartRate, systolic, diastolic;
-    double bloodSugar;
+    private int restingHeartRateGoal, systolicGoal, diastolicGoal;
+    double bloodSugarGoal;
 
     // Activity goals
-    private int exerciseHours, sleepHours, workHours;
+    private int strengthGoal, cardioGoal, sleepGoal, workGoal;
+    PHTQuotaFile phtquotafile;
 
     public PHTQuota()
     {
-        return;
+        this.phtquotafile = new PHTQuotaFile();
     }
 
-    public PHTQuota(int restingHeartRate, int systolic, int diastolic,
-            double bloodSugar, int exerciseHours, int sleepHours, int workHours)
+    public PHTQuota(int strengthGoal, int cardioGoal, int workGoal,
+            int sleepGoal, int restingHeartRateGoal, int systolicGoal, int diastolicGoal,
+            double bloodSugarGoal)
     {
-        this.restingHeartRate = restingHeartRate;
-        this.systolic = systolic;
-        this.diastolic = diastolic;
-        this.bloodSugar = bloodSugar;
-        this.exerciseHours = exerciseHours;
-        this.sleepHours = sleepHours;
-        this.workHours = workHours;
+        this.strengthGoal = strengthGoal;
+        this.cardioGoal = cardioGoal;
+        this.workGoal = workGoal;
+        this.sleepGoal = sleepGoal;
+        this.restingHeartRateGoal = restingHeartRateGoal;
+        this.systolicGoal = systolicGoal;
+        this.diastolicGoal = diastolicGoal;
+        this.bloodSugarGoal = bloodSugarGoal;
+        this.phtquotafile = new PHTQuotaFile();
     }
 
-    public int getRestingHeartRate()
+    public void save()
     {
-        return restingHeartRate;
+        this.phtquotafile.saveDataFrom(this);
     }
 
-    public void setRestingHeartRate(int restingHeartRate)
+    public boolean load()
     {
-        this.restingHeartRate = restingHeartRate;
+        if (this.phtquotafile.loadDataTo(this)) return true;
+        else return false;
     }
-
-    public int getSystolic()
+    
+    public int getRestingHeartRateGoal()
     {
-        return systolic;
+        return restingHeartRateGoal;
     }
 
-    public void setSystolic(int systolic)
+    public void setRestingHeartRateGoal(int restingHeartRateGoal)
     {
-        this.systolic = systolic;
+        this.restingHeartRateGoal = restingHeartRateGoal;
     }
 
-    public int getDiastolic()
+    public int getSystolicGoal()
     {
-        return diastolic;
+        return systolicGoal;
     }
 
-    public void setDiastolic(int diastolic)
+    public void setSystolicGoal(int systolicGoal)
     {
-        this.diastolic = diastolic;
+        this.systolicGoal = systolicGoal;
     }
 
-    public double getBloodSugar()
+    public int getDiastolicGoal()
     {
-        return bloodSugar;
+        return diastolicGoal;
     }
 
-    public void setBloodSugar(double bloodSugar)
+    public void setDiastolicGoal(int diastolicGoal)
     {
-        this.bloodSugar = bloodSugar;
+        this.diastolicGoal = diastolicGoal;
     }
 
-    public int getExerciseHours()
+    public double getBloodSugarGoal()
     {
-        return exerciseHours;
+        return bloodSugarGoal;
     }
 
-    public void setExerciseHours(int exerciseHours)
+    public void setBloodSugarGoal(double bloodSugarGoal)
     {
-        this.exerciseHours = exerciseHours;
+        this.bloodSugarGoal = bloodSugarGoal;
     }
 
-    public int getSleepHours()
+    public int getStrengthGoal()
     {
-        return sleepHours;
+        return strengthGoal;
     }
 
-    public void setSleepHours(int sleepHours)
+    public void setStrengthGoal(int strengthGoal)
     {
-        this.sleepHours = sleepHours;
+        this.strengthGoal = strengthGoal;
     }
 
-    public int getWorkHours()
+    public int getCardioGoal()
     {
-        return workHours;
+        return cardioGoal;
     }
 
-    public void setWorkHours(int workHours)
+    public void setCardioGoal(int cardioGoal)
     {
-        this.workHours = workHours;
+        this.cardioGoal = cardioGoal;
     }
 
+    public int getSleepGoal()
+    {
+        return sleepGoal;
+    }
+
+    public void setSleepGoal(int sleepGoal)
+    {
+        this.sleepGoal = sleepGoal;
+    }
+
+    public int getWorkGoal()
+    {
+        return workGoal;
+    }
+
+    public void setWorkGoal(int workGoal)
+    {
+        this.workGoal = workGoal;
+    }
+
+    @Override
+    public String toString()
+    {
+        return (this.strengthGoal + "\n" + this.cardioGoal + "\n"
+                + this.workGoal + "\n" + this.sleepGoal + "\n"
+                + this.restingHeartRateGoal + "\n" + this.systolicGoal + "\n"
+                + this.diastolicGoal + "\n" + this.bloodSugarGoal);
+    }
+
+    public int getWeeklyStrength()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklyCardio()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklyWork()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklySleep()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklyRestingHeartRate()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklySystolic()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklyDiastolic()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    public int getWeeklyBloodSugar()
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

@@ -17,8 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import org.pht.quota.PHTQuotaPanel;
+
 public class MainFrame extends JFrame {
-	private JPanel framePanel, personPanel, statusPanel, buttonPanel, quotaPanel, centerPanel;
+	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
+	private PHTQuotaPanel quotaPanel;
 	private JButton addHealthBtn, addPhysBtn, viewRepBtn, addPersBtn;
 	
 	//components for personPanel
@@ -87,14 +90,14 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);
 		
-		quotaPanel = new JPanel();
+		quotaPanel = new PHTQuotaPanel();
 		quotaPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		quotaPanel.setPreferredSize(new Dimension(300, 400));
-		quotaLbl = new JLabel("Quota");
-		quotaLbl.setPreferredSize(new Dimension(250, 30));
-		quotaLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		quotaLbl.setBorder(BorderFactory.createLineBorder(Color.black));
-		quotaPanel.add(quotaLbl);
+		//quotaLbl = new JLabel("Quota");
+		//quotaLbl.setPreferredSize(new Dimension(250, 30));
+		//quotaLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		//quotaLbl.setBorder(BorderFactory.createLineBorder(Color.black));
+		//quotaPanel.add(quotaLbl);
 		
 		framePanel.add(BorderLayout.SOUTH, buttonPanel);
 		framePanel.add(BorderLayout.CENTER, centerPanel);
