@@ -1,0 +1,4 @@
+-Included implementation of Bar and Pie charts (Area chart on the way)
+-Pie chart provides current daily, weekly, and monthly views, as well as views for specific days, weeks, and months.
+-Bar chart provides daily, weekly (total/days in to the week), and monthly (total/days in to the month) views. There is only the option to enter a specific date for the daily charts, as implementing specific weeks and months would take too long and extend past the first sprint.
+-Charts may be added to any JFrame, but they have to be initialized on a JavaFX thread. I have included the main class which shows how this may be done.
