@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,7 +23,7 @@ public class PhysicalActivityFrame extends ActivityFrame {
     public PhysicalActivityFrame() {
 		//Create an Activity frame with Physical Activity components
 		super(physicalActivities, new String("Add Physical Activity"), createPhysicalComponents());
-				
+		
 		//Add action listener to ok button to save the information entered by the user
 		ok.addActionListener(new ActionListener() {
 	        @Override
@@ -47,7 +48,10 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	            }
 	        }
 	    });
-		
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setTitle("Add Physical Activity");
+        setVisible(true);
 	}
 
     private static JPanel createPhysicalComponents() {

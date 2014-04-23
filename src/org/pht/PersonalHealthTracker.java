@@ -13,15 +13,7 @@ public class PersonalHealthTracker
     public static void main(String[] args)
     {
         PHTData data = new PHTData();
-
-        PhysicalActivityFrame physical = new PhysicalActivityFrame();
-        physical.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        physical.setVisible(true);
-
-        HealthActivityFrame health = new HealthActivityFrame();
-        health.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        health.setVisible(true);
-
+        
         MainFrame mainFrame = new MainFrame();
     }
 

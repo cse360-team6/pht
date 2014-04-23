@@ -13,9 +13,9 @@ import java.nio.file.StandardOpenOption;
 public class PHTDataFile
 {
     private final Charset CHARSET = Charset.forName("UTF-8");
-    private final Path FILE_PATH = Paths.get(System.getProperty("user.home")
+    private static final Path FILE_PATH = Paths.get(System.getProperty("user.home")
             + "/PHT/phtdata.txt");
-    private final Path FOLDER_PATH = Paths.get(System.getProperty("user.home")
+    private static final Path FOLDER_PATH = Paths.get(System.getProperty("user.home")
             + "/PHT");
     private File file;
 

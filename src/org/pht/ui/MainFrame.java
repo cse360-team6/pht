@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -18,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import org.pht.quota.PHTQuotaPanel;
+import org.pht.ui.activity.HealthActivityFrame;
+import org.pht.ui.activity.PhysicalActivityFrame;
 
 public class MainFrame extends JFrame {
 	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
@@ -37,10 +41,12 @@ public class MainFrame extends JFrame {
 	//components for quotaPanel
 	private JLabel quotaLbl;
 	
-	
+	private PhysicalActivityFrame paFrame;
+	private HealthActivityFrame haFrame;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setTitle("Personal Health Tracker");
 		setSize(800, 500);
 		framePanel = new JPanel(new BorderLayout());
 		
@@ -86,6 +92,42 @@ public class MainFrame extends JFrame {
 		addHealthBtn = new JButton("Add Health Activity");
 		addPhysBtn = new JButton("Add Physical Activity");
 		viewRepBtn = new JButton("View Detail Report");
+		
+		addHealthBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            if (e.getSource() instanceof JButton) {
+	            	if (haFrame == null || !haFrame.isVisible())	{            		
+	            		haFrame = new HealthActivityFrame();
+	            		haFrame.setLocationRelativeTo(centerPanel);
+	            	} else {
+	            		haFrame.toFront();
+		            }
+	            }
+	        }
+		});
+		addPhysBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            if (e.getSource() instanceof JButton) {
+	            	if (paFrame == null || !paFrame.isVisible())	{
+	            		paFrame = new PhysicalActivityFrame();
+	            		paFrame.setLocationRelativeTo(centerPanel);
+	            	} else {
+	            		paFrame.toFront();
+	            	}
+	            }
+	        }
+		});
+		viewRepBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            if (e.getSource() instanceof JButton) {
+	            	
+	            }
+	        }
+		});
+		
 		buttonPanel.add(addHealthBtn);
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);

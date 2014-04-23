@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -85,6 +86,10 @@ public class HealthActivityFrame extends ActivityFrame {
 	            }
 	        }
 	    });
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setResizable(false);
+		setTitle("Add Health Activity");	
+        setVisible(true);
 	}
 
     private static JPanel createHealthComponents() {
