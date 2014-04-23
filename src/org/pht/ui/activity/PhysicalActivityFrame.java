@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 
 public class PhysicalActivityFrame extends ActivityFrame {
 
-    //Properties
+	//Properties
 	private int minutesStored, hoursStored;
 	private static String[] physicalActivities = { "Cardio Workout", "Strength Workout", "Work Hours", "Time Slept"};
 	private static JTextField hours, minutes, memo;
