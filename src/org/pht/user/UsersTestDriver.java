@@ -1,31 +1,16 @@
 package org.pht.user;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import org.pht.user.data.CALENDAR;
+import org.pht.user.data.DataEntry;
 
 public class UsersTestDriver {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
-// CALENDAR test
-		Calendar date = Calendar.getInstance();
-		date.set(1970, date.JANUARY, 1, 1, 1, 1);
-		System.out.println(date.getTime());
-		for (int i = 0; i < 100; i++) {
-			System.out.println(CALENDAR.getDays(date));
-			date.roll(date.DAY_OF_YEAR, true);
-		}
-		Long millis = Calendar.getInstance().getTimeInMillis();
-		for (int i = 0; i < 100; i++) {
-			date.setTimeInMillis(millis);
-			System.out.println(date.getTime());
-			millis = millis - CALENDAR.MILLIS_DAY.longValue();
-		}
-		
-		
 // DataEntry test
+		DataEntry data = new DataEntry(CALENDAR.getInstance(), 1,2,3,4,5,6,7,8.0);
 		
 		
 

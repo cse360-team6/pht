@@ -9,14 +9,12 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 class Users {
-    // Files and things
-	private static final long serialVersionUID = 4669256805791553941L;
-	
-	private HashMap<String, User> users;
+    private HashMap<String, User> users;
 	private File file;
 	
-	public Users() {
+	public Users() throws ClassNotFoundException, IOException {
 		users = new HashMap<String, User>();
+		this.loadUsers();
 	}
 	
 	public boolean loadUsers() throws IOException, ClassNotFoundException {

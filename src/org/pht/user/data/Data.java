@@ -4,48 +4,50 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class Data extends HashMap<Long, DataEntry> implements Serializable {
-	private static final long MILLIS_DAY = 86400000;
+public class Data implements Serializable {
 	private static final long serialVersionUID = -3059143241386106119L;
-	private String userName;
+	private HashMap<Long, DataEntry> data;
 
 	public Data() {
-	}
-	
-	public Data(String userName) {
-		this.userName = userName;
+		data = new HashMap<Long, DataEntry>();
 	}
 
-	public DataEntry getEntryByDate(Calendar date) {
-		long day = date.getTimeInMillis() / MILLIS_DAY;
-		return this.get(day);
+	public DataEntry getEntry(Calendar cal) {
+		Long days = new Long(CALENDAR.calToDays(cal));
+		return data.get(days);
 	}
 
 	public void addEntry(DataEntry e) {
-
+		Long days = new Long(CALENDAR.calToDays(e.getCalendar()));
+		data.put(days, e);
 	}
 
-	public void deleteEntry(Calendar cal) { // TODO Auto-generated method stub
+	public void addEntry(Calendar calendar, int cardioHours, int strengthHours,
+			int workHours, int sleepHours, int systolic, int diastolic,
+			int restingHeartRate, double bloodSugar) {
+		DataEntry e = new DataEntry(calendar, cardioHours, strengthHours,
+				workHours, sleepHours, systolic, diastolic, restingHeartRate,
+				bloodSugar);
+		Long days = new Long(CALENDAR.calToDays(e.getCalendar()));
+		data.put(days, e);
 	}
 
-	public void replaceEntryByDate(Calendar cal, DataEntry e) { // TODO
-																// Auto-generated
-																// method stub
+	public void deleteEntry(Calendar calendar) {
+		Long days = new Long(CALENDAR.calToDays(calendar));
+		data.remove(days);
+	}
+
+	public void replaceEntry(Calendar date, DataEntry newEntry) {
+		Long days = new Long(CALENDAR.calToDays(date));
+		data.put(days, newEntry);
 	}
 	
-	
-	
-	// Setters and Getters
-	
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "Data [data=" + data + "]";
 	}
 }

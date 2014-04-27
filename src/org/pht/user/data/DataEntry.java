@@ -7,15 +7,16 @@ import java.util.Calendar;
 public class DataEntry implements Serializable
 {
 	private static final long serialVersionUID = 5638248638171687539L;
-	private static final long MILLIS_DAY = 86400000;
 	private int cardioHours, strengthHours, workHours, sleepHours, 
 		systolic, diastolic, restingHeartRate;
 	private double bloodSugar;
-	private long day;
-	private Calendar cal;
+	private Calendar calendar;
+	
+	public static final int CAL = 0, CARDIO_HOURS = 1, STRENGTH_HOURS = 2, WORK_HOURS = 3, SLEEP_HOURS = 4, SYSTOLIC = 5, DIASTOLIC = 6, RESTING_HEART_RATE = 7, BLOOD_SUGAR = 8;
+
 	
 	public DataEntry() { }
-	public DataEntry(Calendar cal, int cardioHours, int strengthHours, int workHours, 
+	public DataEntry(Calendar calendar, int cardioHours, int strengthHours, int workHours, 
 			int sleepHours, int systolic, int diastolic, int restingHeartRate, 
 			double bloodSugar) {
 		this.cardioHours = cardioHours;
@@ -26,26 +27,38 @@ public class DataEntry implements Serializable
 		this.diastolic = diastolic;
 		this.restingHeartRate = restingHeartRate;
 		this.bloodSugar = bloodSugar;
-		this.cal = cal;
-		this.day = this.getDays(cal);
+		this.calendar = calendar;
 	}
 	
-	public long getDays(Calendar cal) {
-		long millis = cal.getTimeInMillis();
-		long days = (millis / MILLIS_DAY);
-		return days;
+	/**
+	 * I hope you're getting the right parameters if you use this.
+	 * @param name
+	 * @return
+	 */
+	public Object get(int fieldName) {
+		switch (fieldName) {
+		case CAL:					return this.calendar;
+    	case CARDIO_HOURS:			return this.cardioHours;
+		case STRENGTH_HOURS: 		return this.strengthHours;
+		case WORK_HOURS: 			return this.workHours;
+		case SLEEP_HOURS:			return this.sleepHours;
+		case SYSTOLIC:				return this.systolic;
+		case DIASTOLIC:				return this.diastolic;
+		case RESTING_HEART_RATE:	return this.restingHeartRate;
+		case BLOOD_SUGAR:			return this.bloodSugar;
+		default: 					return -0.0;
+		}	
 	}
 	
 	public int getSystolic() { return systolic; }
 	public int getDiastolic() { return diastolic; }
 	public int getRestingHeartRate() { return restingHeartRate; }
-	public double getBloodSugar() { return bloodSugar; }
 	public int getSleepHours() { return sleepHours; }
 	public int getStrengthHours() { return strengthHours; }
 	public int getCardioHours() { return cardioHours; }
 	public int getWorkHours() { return workHours; }
-	public Calendar getCal() { return cal; }
-	public long getDay() { return day; }
+	public double getBloodSugar() { return bloodSugar; }
+	public Calendar getCalendar() { return this.calendar; }
 		
 	public void setSystolic(int systolic) { this.systolic = systolic; }
 	public void setDiastolic(int diastolic) { this.diastolic = diastolic; }
@@ -55,16 +68,29 @@ public class DataEntry implements Serializable
 	public void setStrengthHours(int strengthHours) { this.strengthHours = strengthHours; }
 	public void setSleepHours(int sleepHours) { this.sleepHours = sleepHours; }
 	public void setWorkHours(int workHours) { this.workHours = workHours; }
-	public void setCal(Calendar cal) { this.cal = cal; }
-	public void setDay(long day) { this.day = day; }
-	public int compareTo(DataEntry e) { return this.cal.compareTo(e.getCal()); }
-	
+	public void setCalendar(Calendar calendar) { this.calendar = calendar; }
+	public int compareTo(DataEntry e) { return this.calendar.compareTo(e.getCalendar()); }
 	@Override
 	public String toString() {
 		return "DataEntry [cardioHours=" + cardioHours + ", strengthHours="
 				+ strengthHours + ", workHours=" + workHours + ", sleepHours="
 				+ sleepHours + ", systolic=" + systolic + ", diastolic="
 				+ diastolic + ", restingHeartRate=" + restingHeartRate
-				+ ", bloodSugar=" + bloodSugar + ", cal=" + cal + "]";
+				+ ", bloodSugar=" + bloodSugar + ", cal="
+				+ calendar + ", getSystolic()=" + getSystolic()
+				+ ", getDiastolic()=" + getDiastolic()
+				+ ", getRestingHeartRate()=" + getRestingHeartRate()
+				+ ", getSleepHours()=" + getSleepHours()
+				+ ", getStrengthHours()=" + getStrengthHours()
+				+ ", getCardioHours()=" + getCardioHours()
+				+ ", getWorkHours()=" + getWorkHours() + ", getBloodSugar()="
+				+ getBloodSugar() + ", getCalendar().getTimeInMillis=" + getCalendar().getTimeInMillis() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }
