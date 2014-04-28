@@ -6,72 +6,49 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-import org.pht.ui.activity.PhysicalActivityFrame;
+import org.pht.user.data.*;
 
 public class Pie 
 {
 
-	public Scene dayPhysicalPie(ArrayList<PhysicalActivityFrame> activity, Calendar currentDate) {
-
-		//Loop through array of activities, check if they are same day and month. 
-		//If they are, add the totals to a temporary variable
-
+	public Scene dayPhysicalPie(Data entry, Calendar currentDate) {
 		Scene scene = new Scene(new Group());
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		int cardio = 0, strength = 0, sleep = 0, work = 0;
 		final PieChart chart = new PieChart(pieChartData);
-		
-		for(int i = 0; i < activity.size(); i++) {		
+		DataEntry e = entry.getEntry(currentDate);		
 
-			//If the date of the activity is after the entered date, break from the loop
-			if((activity.get(i).getDate().get(Calendar.YEAR) == currentDate.get(Calendar.YEAR) && activity.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH) && activity.get(i).getDate().get(Calendar.DAY_OF_MONTH) > currentDate.get(Calendar.DAY_OF_MONTH)) 
-					|| (activity.get(i).getDate().get(Calendar.YEAR) == currentDate.get(Calendar.YEAR) && activity.get(i).getDate().get(Calendar.MONTH) > currentDate.get(Calendar.MONTH))) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for current day");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				
-				else {
-					break;
-				}
-			}		
-
-			if(activity.get(i).getDate().get(Calendar.DAY_OF_MONTH) == currentDate.get(Calendar.DAY_OF_MONTH) 
-					&& activity.get(i).getDate().get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)
-					&& activity.get(i).getDate().get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)) {
-				//Update the info if they are from the current date
-				if(activity.get(i).getActivityType() == "Cardio Workout") {
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-				
-			}
+		if(e.getCardioHours() == 0 && e.getStrengthHours() == 0 && e.getSleepHours() == 0 && e.getWorkHours() == 0)	{
+			chart.setTitle("No input data for current day");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
 		}
+
+		if(e.getCardioHours() > 0)
+		{
+			cardio = e.getCardioHours();
+		}
+		if(e.getStrengthHours() > 0)
+		{
+			strength = e.getStrengthHours();
+		}
+		if(e.getWorkHours() > 0)
+		{
+			work = e.getWorkHours();
+		}
+		if(e.getSleepHours() > 0)
+		{
+			sleep = e.getSleepHours();
+		}
+
 
 		pieChartData.add(new PieChart.Data("Cardio", cardio));
 		pieChartData.add(new PieChart.Data("Strength", strength));
 		pieChartData.add(new PieChart.Data("Work", work));
 		pieChartData.add(new PieChart.Data("Sleep", sleep));
-
-
-		System.out.print(cardio + "\n" + strength + "\n" + work + "\n" + sleep + "\n");
-
 		chart.setTitle("Current Day Physical Summary");
 
 		((Group) scene.getRoot()).getChildren().add(chart);
@@ -79,52 +56,42 @@ public class Pie
 		return (scene);
 	}
 
-	public Scene dayPhysicalPie(ArrayList<PhysicalActivityFrame> activity, int day, int month, int year) {
+	public Scene dayPhysicalPie(Data entry, int day, int month, int year) {
 		Scene scene = new Scene(new Group());
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		int cardio = 0, strength = 0, sleep = 0, work = 0;
 		final PieChart chart = new PieChart(pieChartData);
+		Calendar temp = new GregorianCalendar();
+		DataEntry e = new DataEntry();
+		temp.set(Calendar.MONTH, month);
+		if(day > 0 && day <= temp.getActualMaximum(Calendar.MONTH))
+		{
+			temp.set(Calendar.DAY_OF_MONTH, day);
+		}
+		temp.set(Calendar.YEAR, year);
+		e = entry.getEntry(temp);		
 
-		for(int i = 0; i <  activity.size(); i++) {
+		if(e.getCardioHours() == 0 && e.getStrengthHours() == 0 && e.getSleepHours() == 0 && e.getWorkHours() == 0)	{
+			chart.setTitle("No input data for current day");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
+		}
 
-			//If the date of the activity is after the entered date, break from the loop
-			//If day entered in to the function does not match any records, no data will be returned
-			if((activity.get(i).getDate().get(Calendar.YEAR) == year && activity.get(i).getDate().get(Calendar.MONTH) > month 
-					|| (activity.get(i).getDate().get(Calendar.YEAR) == year && activity.get(i).getDate().get(Calendar.MONTH) == month && activity.get(i).getDate().get(Calendar.DATE) > day))) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for specified day");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				else {
-					break;
-				}
-			}
-
-			if(activity.get(i).getDate().get(Calendar.MONTH) == month 
-					&& activity.get(i).getDate().get(Calendar.DATE) == day
-					&& activity.get(i).getDate().get(Calendar.YEAR) == year) {
-				
-				//Update the info if they are from the date entered
-				if(activity.get(i).getActivityType() == "Cardio Workout") {
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-			}
-
-
+		if(e.getCardioHours() > 0)
+		{
+			cardio = e.getCardioHours();
+		}
+		if(e.getStrengthHours() > 0)
+		{
+			strength = e.getStrengthHours();
+		}
+		if(e.getWorkHours() > 0)
+		{
+			work = e.getWorkHours();
+		}
+		if(e.getSleepHours() > 0)
+		{
+			sleep = e.getSleepHours();
 		}
 
 		pieChartData.add(new PieChart.Data("Cardio", cardio));
@@ -139,117 +106,45 @@ public class Pie
 		return (scene);
 	}
 
-	public Scene weekPhysicalPie(ArrayList<PhysicalActivityFrame> activity, int month, int week, int year) {
+	public Scene weekPhysicalPie(Data entry, Calendar currentWeek) {
 		Scene scene = new Scene(new Group());
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 		int cardio = 0, strength = 0, sleep = 0, work = 0;
 		final PieChart chart = new PieChart(pieChartData);
 
-		for(int i = 0; i <  activity.size(); i++) {
+		//Check how many days in to the week it is. For final entry in to chart
+		int daysIn = currentWeek.get(Calendar.DAY_OF_WEEK);
+		DataEntry e = entry.getEntry(currentWeek);
 
-			//If the loop goes past the specified month
-			if((activity.get(i).getDate().get(Calendar.YEAR) == year && activity.get(i).getDate().get(Calendar.MONTH) > month 
-					|| ((activity.get(i).getDate().get(Calendar.YEAR) == year && activity.get(i).getDate().get(Calendar.MONTH) == month) && activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) > week))) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for specified week");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				else {
-					break;
-				}
-			}
-			
-			if(activity.get(i).getDate().get(Calendar.MONTH) == month 
-					&& activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) == week
-					&& activity.get(i).getDate().get(Calendar.YEAR) == year) {
-				
-				if(activity.get(i).getActivityType() == "Cardio Workout") { 
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-			}
+		//If there is only one days worth of data, return an empty chart (there is no point)
+		if(daysIn == 0)	{
+			chart.setTitle("Not enough data for current week");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
 		}
 
-
-
-		pieChartData.add(new PieChart.Data("Cardio", cardio));
-		pieChartData.add(new PieChart.Data("Strength", strength));
-		pieChartData.add(new PieChart.Data("Work", work));
-		pieChartData.add(new PieChart.Data("Sleep", sleep));		
-
-		chart.setTitle("Specified Week Physical Summary");
-
-		((Group) scene.getRoot()).getChildren().add(chart);
-
-		return (scene);
-	}
-
-	public Scene weekPhysicalPie(ArrayList<PhysicalActivityFrame> activity, Calendar currentWeek) {
-		//Create a pie chart displaying daily summary of physical activities		
-		//Loop through array of activities, check if they are same day and month. 
-		//If they are, add the totals to a temporary variable
-		Scene scene = new Scene(new Group());
-		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		int cardio = 0, strength = 0, sleep = 0, work = 0;
-		final PieChart chart = new PieChart(pieChartData);
-
-		for(int i = 0; i <  activity.size(); i++) {
-
-			//If the loop goes past the specified month
-			if((activity.get(i).getDate().get(Calendar.YEAR) == currentWeek.get(Calendar.YEAR) && activity.get(i).getDate().get(Calendar.MONTH) > currentWeek.get(Calendar.MONTH)) 
-					|| (activity.get(i).getDate().get(Calendar.YEAR) == currentWeek.get(Calendar.YEAR) && activity.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) && activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) > currentWeek.get(Calendar.WEEK_OF_MONTH))) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for current week");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				else {
-					break;
-				}
-			}
-			
-			if(activity.get(i).getDate().get(Calendar.MONTH) == currentWeek.get(Calendar.MONTH) 
-					&& activity.get(i).getDate().get(Calendar.WEEK_OF_MONTH) == currentWeek.get(Calendar.WEEK_OF_MONTH)
-					&& activity.get(i).getDate().get(Calendar.YEAR) == currentWeek.get(Calendar.YEAR)) {
-				
-				if(activity.get(i).getActivityType() == "Cardio Workout") { 
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-			}
+		//Loop through each day in the current week
+		for(int i = 0; i <= daysIn; i++)
+		{
+			Calendar temp = currentWeek;
+			temp.set(Calendar.DAY_OF_WEEK, i);
+			e = entry.getEntry(temp);
+			cardio += e.getCardioHours();
+			strength += e.getStrengthHours();
+			work += e.getWorkHours();
+			sleep += e.getSleepHours();
 		}
 
-		System.out.print(cardio + "\n" + strength + "\n" + work + "\n" + sleep + "\n");
+		if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
+			chart.setTitle("No input data for current week");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
+		}
 
-		pieChartData.add(new PieChart.Data("Cardio", cardio));
-		pieChartData.add(new PieChart.Data("Strength", strength));
-		pieChartData.add(new PieChart.Data("Work", work));
-		pieChartData.add(new PieChart.Data("Sleep", sleep));		
+		pieChartData.add(new PieChart.Data("Cardio", cardio/daysIn));
+		pieChartData.add(new PieChart.Data("Strength", strength/daysIn));
+		pieChartData.add(new PieChart.Data("Work", work/daysIn));
+		pieChartData.add(new PieChart.Data("Sleep", sleep/daysIn));		
 
 		chart.setTitle("Current Week Physical Summary");
 
@@ -258,118 +153,43 @@ public class Pie
 		return (scene);
 	}
 
-	public Scene monthPhysicalPie(ArrayList<PhysicalActivityFrame> activity, int month, int year) {
+	public Scene monthPhysicalPie(Data entry, Calendar currentMonth) {
 		//Create a pie chart displaying daily summary of physical activities		
 		//Loop through array of activities, check if they are same day and month. 
 		//If they are, add the totals to a temporary variable
 		Scene scene = new Scene(new Group());
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		int cardio = 0, strength = 0, sleep = 0, work = 0;
+		int cardio = 0, strength = 0, sleep = 0, work = 0, daysIn = currentMonth.get(Calendar.DAY_OF_MONTH);
 		final PieChart chart = new PieChart(pieChartData);
+		DataEntry e = entry.getEntry(currentMonth);
 
-		for(int i = 0; i <  activity.size(); i++) {
-
-			//If the loop goes past the specified month
-			if(activity.get(i).getDate().get(Calendar.YEAR) == year 
-					&& activity.get(i).getDate().get(Calendar.MONTH) > month) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for specified month");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				else {
-					break;
-				}
-			}
-			
-			if(activity.get(i).getDate().get(Calendar.YEAR) == year 
-					&& activity.get(i).getDate().get(Calendar.MONTH) == month) {
-				
-				if(activity.get(i).getActivityType() == "Cardio Workout") { 
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-			}
+		if(daysIn == 1)	{
+			chart.setTitle("Not enough data for current month");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
 		}
 
-		System.out.print(cardio + "\n" + strength + "\n" + work + "\n" + sleep + "\n");
-
-		pieChartData.add(new PieChart.Data("Cardio", cardio));
-		pieChartData.add(new PieChart.Data("Strength", strength));
-		pieChartData.add(new PieChart.Data("Work", work));
-		pieChartData.add(new PieChart.Data("Sleep", sleep));		
-
-		chart.setTitle("Specified Month Physical Summary");
-
-		((Group) scene.getRoot()).getChildren().add(chart);
-
-		return (scene);
-	}
-
-	public Scene monthPhysicalPie(ArrayList<PhysicalActivityFrame> activity, Calendar currentMonth) {
-		//Create a pie chart displaying daily summary of physical activities		
-		//Loop through array of activities, check if they are same day and month. 
-		//If they are, add the totals to a temporary variable
-		Scene scene = new Scene(new Group());
-		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		int cardio = 0, strength = 0, sleep = 0, work = 0;
-		final PieChart chart = new PieChart(pieChartData);
-
-		for(int i = 0; i <  activity.size(); i++) {
-
-			//If the loop goes past the specified month
-			if(activity.get(i).getDate().get(Calendar.YEAR) == currentMonth.get(Calendar.YEAR) 
-					&& activity.get(i).getDate().get(Calendar.MONTH) > currentMonth.get(Calendar.MONTH)) {
-				
-				if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{
-					chart.setTitle("No input data for current month");
-					((Group) scene.getRoot()).getChildren().add(chart);
-					return (scene);
-				}
-				
-				else {
-					break;
-				}
-			}
-			if(activity.get(i).getDate().get(Calendar.YEAR) == currentMonth.get(Calendar.YEAR) 
-					&& activity.get(i).getDate().get(Calendar.MONTH) == currentMonth.get(Calendar.MONTH)) {
-				
-				if(activity.get(i).getActivityType() == "Cardio Workout") { 
-					cardio += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Strength Workout") {
-					strength += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());				
-				}
-
-				if(activity.get(i).getActivityType() == "Work Hours") {
-					work += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-
-				if(activity.get(i).getActivityType() == "Time Slept") {
-					sleep += ((activity.get(i).getHours() * 60) + activity.get(i).getMinutes());
-				}
-			}
+		for(int i = 1; i <= daysIn; i++)
+		{
+			Calendar temp = currentMonth;
+			temp.set(Calendar.DAY_OF_MONTH, i);
+			e = entry.getEntry(temp);
+			cardio += e.getCardioHours();
+			strength += e.getStrengthHours();
+			sleep += e.getSleepHours();
+			work += e.getWorkHours();
 		}
 
-		System.out.print(cardio + "\n" + strength + "\n" + work + "\n" + sleep + "\n");
+		if(cardio == 0 && strength == 0 && sleep == 0 && work == 0)	{					
+			chart.setTitle("No input data for current month");
+			((Group) scene.getRoot()).getChildren().add(chart);
+			return (scene);
+		}
 
-		pieChartData.add(new PieChart.Data("Cardio", cardio));
-		pieChartData.add(new PieChart.Data("Strength", strength));
-		pieChartData.add(new PieChart.Data("Work", work));
-		pieChartData.add(new PieChart.Data("Sleep", sleep));		
+		pieChartData.add(new PieChart.Data("Cardio", cardio/daysIn));
+		pieChartData.add(new PieChart.Data("Strength", strength/daysIn));
+		pieChartData.add(new PieChart.Data("Work", work/daysIn));
+		pieChartData.add(new PieChart.Data("Sleep", sleep/daysIn));		
 
 		chart.setTitle("Specified Month Physical Summary");
 
