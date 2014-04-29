@@ -1,6 +1,7 @@
 package org.pht.user.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -40,6 +41,22 @@ public class Data implements Serializable {
 	public void replaceEntry(Calendar date, DataEntry newEntry) {
 		Long days = new Long(CALENDAR.calToDays(date));
 		data.put(days, newEntry);
+	}
+	
+	public ArrayList<Double> getWeeklySummary(int fieldName) {
+		ArrayList<Double> al = new ArrayList<Double>();
+		Calendar today = Calendar.getInstance();
+		for (int i = 1; i <= 7; i++) {
+			today.set(Calendar.DAY_OF_WEEK, i);
+			DataEntry tmp = getEntry(today);
+			if (tmp == null)
+				al.add(0.0);
+			else {
+				al.add((Double) ((Integer)tmp.get(fieldName)/60.0));
+			}
+		}
+		System.out.println(al.toString());
+		return al;
 	}
 	
 	public static long getSerialversionuid() {

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -67,9 +68,14 @@ public class HealthActivityFrame extends ActivityFrame {
 		            			diastolic = d;
 		            			memoStored = memo.getText();
 		            			typeStored = (String)activities.getSelectedItem();
-		            			if (dateChooser.getCalendar() != null) {
-				            		dateAdded = dateChooser.getCalendar();
-				            	}
+		            			if (dateChooser.getCalendar() == null){
+									notice.setText("  Error: Please Select Date");
+									return;
+								} else if (dateChooser.getCalendar().compareTo(Calendar.getInstance()) > 0) {
+									notice.setText("  Error: Please Select Valid Date");
+									return;
+								}
+				            	dateAdded = dateChooser.getCalendar();
 		            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
 		            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0, memoStored);
 		            			dispose();
@@ -96,9 +102,14 @@ public class HealthActivityFrame extends ActivityFrame {
 	            			bloodSugar = bs;
 	            			memoStored = memo.getText();
 	    	            	typeStored = (String) activities.getSelectedItem();
-	            			if (dateChooser.getCalendar() != null) {
-			            		dateAdded = dateChooser.getCalendar();
-			            	}
+	    	            	if (dateChooser.getCalendar() == null){
+								notice.setText("  Error: Please Select Date");
+								return;
+							} else if (dateChooser.getCalendar().compareTo(Calendar.getInstance()) > 0) {
+								notice.setText("  Error: Please Select Valid Date");
+								return;
+							}
+			            	dateAdded = dateChooser.getCalendar();
 	            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
 	            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, 0, bloodSugar, memoStored);
 	    	            	dispose();
@@ -118,6 +129,14 @@ public class HealthActivityFrame extends ActivityFrame {
 	            			notice.setText("Error: Invalid Heart Rate Value");
 	            			return;
 	            		}
+	            		if (dateChooser.getCalendar() == null){
+							notice.setText("  Error: Please Select Date");
+							return;
+						} else if (dateChooser.getCalendar().compareTo(Calendar.getInstance()) > 0) {
+							notice.setText("  Error: Please Select Valid Date");
+							return;
+						}
+		            	dateAdded = dateChooser.getCalendar();
 	            		
 	            		//If the entered values are within a valid range, parse the strings for the integer values and close the window
 	            		if(hr > 0 && hr < 300) {

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,10 +59,15 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	            		int totalMin = (h*60) + m;
 		            	memoStored = memo.getText();
 		            	typeStored = (String) activities.getSelectedItem();
+		            	if (dateChooser.getCalendar() == null){
+							notice.setText("  Error: Please Select Date");
+							return;
+						} else if (dateChooser.getCalendar().compareTo(Calendar.getInstance()) > 0) {
+							notice.setText("  Error: Please Select Valid Date");
+							return;
+						}
+		            	dateAdded = dateChooser.getCalendar();
 		            	
-		            	if (dateChooser.getCalendar() != null) {
-		            		dateAdded = dateChooser.getCalendar();
-		            	}
 		            	User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
 		            	switch((String)activities.getSelectedItem()) {
 		            		case "Cardio Workout":
@@ -76,8 +82,13 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	        				case "Time Slept":
             					user.getData().addEntry(dateAdded, 0, 0, 0, totalMin, 0, 0, 0, 0, memoStored);
 	        					break;
-            			}
+            			}	            	
+		            	PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars(
+		            			PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
+		            					PersonalHealthTracker.getMainFrame().getCurrentUser()));
+		            	PersonalHealthTracker.getMainFrame().updateChart();
 		            	dispose();
+
 		            	
 	            	}
 	            	
