@@ -1,6 +1,7 @@
 package org.pht.user;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import org.pht.user.data.CALENDAR;
 import org.pht.user.data.DataEntry;
@@ -10,7 +11,7 @@ public class UsersTestDriver {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 // DataEntry test
-		DataEntry data = new DataEntry(CALENDAR.getInstance(), 1,2,3,4,5,6,7,8.0);
+		DataEntry data = new DataEntry(Calendar.getInstance(), 1,2,3,4,5,6,7,8.0);
 		
 		
 

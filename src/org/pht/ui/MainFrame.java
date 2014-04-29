@@ -145,6 +145,7 @@ public class MainFrame extends JFrame {
 		framePanel.add(BorderLayout.CENTER, centerPanel);
 		framePanel.add(BorderLayout.EAST, quotaPanel);
 		add(framePanel);
+		setResizable(false);
 		setVisible(true);
 	}
 	

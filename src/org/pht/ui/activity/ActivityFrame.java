@@ -7,10 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.toedter.calendar.JDateChooser;
 
 public class ActivityFrame extends JFrame {
     // Properties
@@ -20,7 +24,7 @@ public class ActivityFrame extends JFrame {
 	protected static JButton ok, cancel;
 	protected JComboBox<String> activities = new JComboBox<String>();	
 	private JPanel dropDown = new JPanel (new FlowLayout());	
-	private JPanel buttons = new JPanel();;
+	private JPanel buttons = new JPanel();
 
     // Constructors
     public ActivityFrame(String[] options, String frameTitle, JPanel activity) {
@@ -31,7 +35,7 @@ public class ActivityFrame extends JFrame {
 		//Create a drop down menu from a string array passed in through the super constructor
 		activities = new JComboBox<String>(options);
 		activities.setSelectedIndex(0);
-		activities.setPreferredSize(new Dimension(220, 25));		
+		activities.setPreferredSize(new Dimension(220, 25));
 		
 		//Add buttons and drop down menu to respective JPanel objects
 		dropDown.add(activities);
@@ -53,7 +57,7 @@ public class ActivityFrame extends JFrame {
 		add(activity);
 		add(buttons, BorderLayout.SOUTH);		
 		
-		setSize(250, 300);		
+		setSize(250, 325);		
 	}
 
     //Accessors
@@ -68,5 +72,12 @@ public class ActivityFrame extends JFrame {
 	public Calendar getDate()	{
 		//Return date (for use in charts)
 		return dateAdded;
+	}
+	
+	protected static JPanel setTwoComponents(JComponent a, JComponent b) {
+		JPanel res = new JPanel(new FlowLayout(FlowLayout.LEADING));
+		res.add(a);
+		res.add(b);
+		return res;
 	}
 }

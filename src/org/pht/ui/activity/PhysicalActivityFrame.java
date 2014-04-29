@@ -1,5 +1,6 @@
 package org.pht.ui.activity;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,16 +9,25 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
 
 public class PhysicalActivityFrame extends ActivityFrame {
 
 	//Properties
 	private int minutesStored, hoursStored;
 	private static String[] physicalActivities = { "Cardio Workout", "Strength Workout", "Work Hours", "Time Slept"};
-	private static JTextField hours, minutes, memo;
+	private static JButton timer;
+	private static JTextField hours, minutes;
+	private static JTextArea memo;
 	private static JPanel physicalComponent;
-	private static JLabel physicalNotice = new JLabel("");	
+	private static JLabel notice;
+	private static JScrollPane memoSPane;
+	private static JDateChooser dateChooser;
+	private static JLabel dateLbl;	
 
     // Constructors
     public PhysicalActivityFrame() {
@@ -29,13 +39,25 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (e.getSource() instanceof JButton) {
+	            	int h, m;
+	            	try {
+	            		h = Integer.parseInt(hours.getText());
+	            		m = Integer.parseInt(minutes.getText());
+	            	} catch (Exception exc) {
+	            		notice.setText("Error: Invalid Time Entered");
+	            		h = m = 100;
+	            	}
 	            	
 	            	//If they are valid entries, parse the integer values from the strings and close the window
-	            	if(Integer.parseInt(minutes.getText()) < 60 && Integer.parseInt(hours.getText()) < 24) {
-	            		minutesStored = Integer.parseInt(minutes.getText());
-	            		hoursStored = Integer.parseInt(hours.getText());
+	            	if (m < 60 && h < 24) {
+	            		minutesStored = m;
+	            		hoursStored = h;
 		            	memoStored = memo.getText();
 		            	typeStored = (String) activities.getSelectedItem();
+		            	
+		            	if (dateChooser.getCalendar() != null) {
+		            		dateAdded = dateChooser.getCalendar();
+		            	}
 		            	
 		            	dispose();
 		            	
@@ -43,7 +65,7 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	            	
 	            	//Otherwise, display an error inside the window
 	            	else {
-	            		physicalNotice.setText("Error: Invalid Time Entered");
+	            		notice.setText("Error: Invalid Time Entered");
 	            	}    
 	            }
 	        }
@@ -60,17 +82,28 @@ public class PhysicalActivityFrame extends ActivityFrame {
 		//Instantiate new text fields to hold user information
 		hours = new JTextField("Hours");		
 		minutes = new JTextField("Minutes");
-		memo = new JTextField("Memos");
+		timer = new JButton("Timer");
+		memo = new JTextArea("Memos");
+		memoSPane = new JScrollPane(memo);
+		dateChooser = new JDateChooser();
+		dateLbl = new JLabel("Date:");
+		notice = new JLabel(" ");	
 				
-		hours.setPreferredSize(new Dimension(97, 20));
-		minutes.setPreferredSize(new Dimension(98, 20));
-		memo.setPreferredSize(new Dimension(200, 100));
+		dateChooser.setPreferredSize(new Dimension(160, 30));
+		hours.setPreferredSize(new Dimension(60, 20));
+		minutes.setPreferredSize(new Dimension(60, 20));
+		timer.setPreferredSize(new Dimension(80, 20));
+		memo.setLineWrap(true);
+		memoSPane.setPreferredSize(new Dimension(200, 120));
+		notice.setForeground(Color.RED);
 		
 		//Add each field to the JPanel to be returned by the function
 		physicalComponent.add(hours);
 		physicalComponent.add(minutes);
-		physicalComponent.add(memo);
-		physicalComponent.add(physicalNotice);
+		physicalComponent.add(timer);
+		physicalComponent.add(memoSPane);
+		physicalComponent.add(setTwoComponents(dateLbl, dateChooser));
+		physicalComponent.add(notice);
 		
 		return physicalComponent;
     }
