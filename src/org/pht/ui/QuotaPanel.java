@@ -30,11 +30,9 @@ import java.awt.BorderLayout;
 
 public class QuotaPanel extends JPanel {
 	private static final long serialVersionUID = 1446567741568668883L;
-
 	JProgressBar strengthBar, cardioBar, workBar, sleepBar;
-	
+
 	public QuotaPanel() {
-		
 		setLayout(null);
 
 		JPanel labelPanel = new JPanel();
@@ -101,11 +99,10 @@ public class QuotaPanel extends JPanel {
 		// progressPanel.add(bloodSugarBar);
 		// bloodSugarBar.setStringPainted(true);
 		// bloodSugarBar.setString("Blood Sugar");
-		
+
 		/*
 		 * Set progress bars
 		 */
-
 		JButton editButton = new JButton("Edit Personal Goals");
 		editButton.setBounds(6, 365, 288, 29);
 		add(editButton);
@@ -122,13 +119,13 @@ public class QuotaPanel extends JPanel {
 				.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		textAlertPanel.add(textAlertPane);
 	}
-	
+
 	public void updateProgressBars(User user) {
 		this.cardioBar.setValue(user.getQuota().getCardioWeeklyProgress());
 		this.strengthBar.setValue(user.getQuota().getStrengthWeeklyProgress());
 		this.workBar.setValue(user.getQuota().getWorkWeeklyProgress());
 		this.sleepBar.setValue(user.getQuota().getSleepWeeklyProgress());
-		
+
 		this.cardioBar.setMaximum(user.getQuota().getCardioGoal());
 		this.strengthBar.setMaximum(user.getQuota().getStrengthGoal());
 		this.workBar.setMaximum(user.getQuota().getWorkGoal());
