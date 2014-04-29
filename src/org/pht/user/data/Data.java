@@ -24,10 +24,10 @@ public class Data implements Serializable {
 
 	public void addEntry(Calendar calendar, int cardioHours, int strengthHours,
 			int workHours, int sleepHours, int systolic, int diastolic,
-			int restingHeartRate, double bloodSugar) {
+			int restingHeartRate, double bloodSugar, String memo) {
 		DataEntry e = new DataEntry(calendar, cardioHours, strengthHours,
 				workHours, sleepHours, systolic, diastolic, restingHeartRate,
-				bloodSugar);
+				bloodSugar, memo);
 		Long days = new Long(CALENDAR.calToDays(e.getCalendar()));
 		data.put(days, e);
 	}

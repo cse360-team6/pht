@@ -11,14 +11,15 @@ public class DataEntry implements Serializable
 		systolic, diastolic, restingHeartRate;
 	private double bloodSugar;
 	private Calendar calendar;
+	private String memo;
 	
-	public static final int CAL = 0, CARDIO_HOURS = 1, STRENGTH_HOURS = 2, WORK_HOURS = 3, SLEEP_HOURS = 4, SYSTOLIC = 5, DIASTOLIC = 6, RESTING_HEART_RATE = 7, BLOOD_SUGAR = 8;
+	public static final int CAL = 0, CARDIO_HOURS = 1, STRENGTH_HOURS = 2, WORK_HOURS = 3, SLEEP_HOURS = 4, SYSTOLIC = 5, DIASTOLIC = 6, RESTING_HEART_RATE = 7, BLOOD_SUGAR = 8, MEMO = 9;
 
 	
 	public DataEntry() { }
 	public DataEntry(Calendar calendar, int cardioHours, int strengthHours, int workHours, 
 			int sleepHours, int systolic, int diastolic, int restingHeartRate, 
-			double bloodSugar) {
+			double bloodSugar, String memo) {
 		this.cardioHours = cardioHours;
 		this.strengthHours = strengthHours;
 		this.workHours = workHours;
@@ -28,6 +29,7 @@ public class DataEntry implements Serializable
 		this.restingHeartRate = restingHeartRate;
 		this.bloodSugar = bloodSugar;
 		this.calendar = calendar;
+		this.memo = memo;
 	}
 	
 	/**
@@ -46,6 +48,7 @@ public class DataEntry implements Serializable
 		case DIASTOLIC:				return this.diastolic;
 		case RESTING_HEART_RATE:	return this.restingHeartRate;
 		case BLOOD_SUGAR:			return this.bloodSugar;
+		case MEMO:					return this.MEMO;
 		default: 					return -0.0;
 		}	
 	}
@@ -59,6 +62,7 @@ public class DataEntry implements Serializable
 	public int getWorkHours() { return workHours; }
 	public double getBloodSugar() { return bloodSugar; }
 	public Calendar getCalendar() { return this.calendar; }
+	public String getMemo() { return this.memo; }
 		
 	public void setSystolic(int systolic) { this.systolic = systolic; }
 	public void setDiastolic(int diastolic) { this.diastolic = diastolic; }
@@ -69,6 +73,7 @@ public class DataEntry implements Serializable
 	public void setSleepHours(int sleepHours) { this.sleepHours = sleepHours; }
 	public void setWorkHours(int workHours) { this.workHours = workHours; }
 	public void setCalendar(Calendar calendar) { this.calendar = calendar; }
+	public void setMemo(String memo) { this.memo = memo; }
 	public int compareTo(DataEntry e) { return this.calendar.compareTo(e.getCalendar()); }
 	@Override
 	public String toString() {

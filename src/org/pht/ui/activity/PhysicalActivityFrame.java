@@ -77,7 +77,6 @@ public class PhysicalActivityFrame extends ActivityFrame {
             					user.getData().addEntry(dateAdded, 0, 0, 0, totalMin, 0, 0, 0, 0, memoStored);
 	        					break;
             			}
-		            	user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0,memoStored);
 		            	dispose();
 		            	
 	            	}

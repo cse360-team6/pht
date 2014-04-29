@@ -11,7 +11,7 @@ public class UsersTestDriver {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 // DataEntry test
-		DataEntry data = new DataEntry(Calendar.getInstance(), 1,2,3,4,5,6,7,8.0);
+		DataEntry data = new DataEntry(Calendar.getInstance(), 1,2,3,4,5,6,7,8.0,"");
 		
 		
 
