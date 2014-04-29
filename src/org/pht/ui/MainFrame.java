@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import org.pht.quota.PHTQuotaPanel;
@@ -29,20 +30,18 @@ public class MainFrame extends JFrame {
 	private JButton addHealthBtn, addPhysBtn, viewRepBtn, addPersBtn;
 	
 	//components for personPanel
-	private JComboBox<String> nameCombo, genderCombo;
-	private JComboBox<Integer> ageCombo;
-	private JLabel ageLbl, genderLbl;
-	private String[] genderStr = {"Male", "Female"};
+	private JComboBox<String> nameCombo;
+	private JComboBox<String> statusCombo;
 	
 	//components for statusPanel
 	private JLabel statusLbl;
-	private JCheckBox sleepBox, workBox, cardioBox, strengthBox;
 	
 	//components for quotaPanel
 	private JLabel quotaLbl;
 	
 	private PhysicalActivityFrame paFrame;
 	private HealthActivityFrame haFrame;
+	private NewUserFrame nuFrame;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,48 +49,50 @@ public class MainFrame extends JFrame {
 		setSize(800, 500);
 		framePanel = new JPanel(new BorderLayout());
 		
-		personPanel = new JPanel(new GridLayout(3,0));
+		personPanel = new JPanel(new GridLayout(1,0));
 		personPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		((GridLayout)personPanel.getLayout()).setHgap(10);
 		((GridLayout)personPanel.getLayout()).setVgap(10);
-		nameCombo = new JComboBox<String>(new String[] {"Name"});
-		nameCombo.setPreferredSize(new Dimension(300, 26));
-		genderCombo = new JComboBox<String>(genderStr);
-		ageCombo = new JComboBox<Integer>();
-		for (int i = 0; i < 120; i++)
-			ageCombo.addItem(i);
-		ageLbl = new JLabel("Age:");
-		genderLbl = new JLabel("Gender:");
+		nameCombo = new JComboBox<String>(new String[] {});
+		nameCombo.setPreferredSize(new Dimension(200, 26));
 		addPersBtn = new JButton("Add");
 		personPanel.add(setTwoComponents(nameCombo, addPersBtn));
-		personPanel.add(setTwoComponents(ageLbl, ageCombo));
-		personPanel.add(setTwoComponents(genderLbl, genderCombo));
 		
 		statusPanel = new JPanel();
-		statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+		//statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
 		statusPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		statusLbl = new JLabel("Status:");
-		sleepBox = new JCheckBox("Sleep");
-		workBox = new JCheckBox("Work");
-		cardioBox = new JCheckBox("Cardio");
-		strengthBox = new JCheckBox("Strength");
+		String[] status = {"Sleep","Work","Cardio","Strength"};
+		statusCombo = new JComboBox<String>(status);
+		statusCombo.setPreferredSize(new Dimension(100,25));
+		statusLbl = new JLabel("Status For:");
 		statusPanel.add(statusLbl);
-		statusPanel.add(sleepBox);
-		statusPanel.add(workBox);
-		statusPanel.add(cardioBox);
-		statusPanel.add(strengthBox);
+		statusPanel.add(statusCombo);
 		
-		centerPanel = new  JPanel(new GridLayout(0,1));
+		centerPanel = new  JPanel();
 		centerPanel.setPreferredSize(new Dimension(500, 400));
 		centerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		centerPanel.add(personPanel);
-		centerPanel.add(statusPanel);	
+		centerPanel.add(setTwoComponents(personPanel,statusPanel));
+		centerPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
 		
 		buttonPanel = new JPanel(new FlowLayout());
 		buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		addHealthBtn = new JButton("Add Health Activity");
 		addPhysBtn = new JButton("Add Physical Activity");
 		viewRepBtn = new JButton("View Detail Report");
+		
+		addPersBtn.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            if (e.getSource() instanceof JButton) {
+	            	if (nuFrame == null || !nuFrame.isVisible())	{            		
+	            		nuFrame = new NewUserFrame();
+	            		nuFrame.setLocationRelativeTo(centerPanel);
+	            	} else {
+	            		nuFrame.toFront();
+		            }
+	            }
+	        }
+		});
 		
 		addHealthBtn.addActionListener(new ActionListener() {
 	        @Override
