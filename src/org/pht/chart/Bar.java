@@ -13,7 +13,6 @@ import org.pht.user.data.*;
 
 
 public class Bar {
-
 	public Scene dayPhysicalBar(Data entry, Calendar currentDate) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
@@ -62,8 +61,8 @@ public class Bar {
 		((Group) scene.getRoot()).getChildren().add(dpb);
 		return (scene);
 	}
-
-	public Scene dayPhysicalBar(Data entry, int day, int month, int year) {
+	
+public Scene dayPhysicalBar(Data entry, int day, int month, int year) {
 		Scene scene = new Scene(new Group());
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();

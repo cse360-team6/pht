@@ -2,15 +2,85 @@ package org.pht.user.data;
 
 import java.io.Serializable;
 
-
-public class Quota implements Serializable
-{
+public class Quota implements Serializable {
 	private static final long serialVersionUID = 3504938562290978942L;
-	private int strengthGoal, cardioGoal, workGoal, sleepGoal, systolicGoal, 
-		diastolicGoal, heartRateGoal;
-	private double bloodSugarGoal;
+	private int strengthGoal, cardioGoal, workGoal, sleepGoal, systolicGoal,
+			diastolicGoal, heartRateGoal, strengthProgress, cardioProgress,
+			workProgress, sleepProgress, systolicProgress, diastolicProgress,
+			heartRateProgress;
+	private double bloodSugarGoal, bloodSugarProgress;
+
+	public Quota() { 
+		this.calculateProgress();
+	}
 	
-	public Quota() { }
+	public void calculateProgress() {
+		
+	}
+	
+	public double getBloodSugarProgress() {
+		return bloodSugarProgress;
+	}
+
+	public void setBloodSugarProgress(double bloodSugarProgress) {
+		this.bloodSugarProgress = bloodSugarProgress;
+	}
+	
+	public int getStrengthProgress() {
+		return strengthProgress;
+	}
+
+	public void setStrengthProgress(int strengthProgress) {
+		this.strengthProgress = strengthProgress;
+	}
+
+	public int getCardioProgress() {
+		return cardioProgress;
+	}
+
+	public void setCardioProgress(int cardioProgress) {
+		this.cardioProgress = cardioProgress;
+	}
+
+	public int getWorkProgress() {
+		return workProgress;
+	}
+
+	public void setWorkProgress(int workProgress) {
+		this.workProgress = workProgress;
+	}
+
+	public int getSleepProgress() {
+		return sleepProgress;
+	}
+
+	public void setSleepProgress(int sleepProgress) {
+		this.sleepProgress = sleepProgress;
+	}
+
+	public int getSystolicProgress() {
+		return systolicProgress;
+	}
+
+	public void setSystolicProgress(int systolicProgress) {
+		this.systolicProgress = systolicProgress;
+	}
+
+	public int getDiastolicProgress() {
+		return diastolicProgress;
+	}
+
+	public void setDiastolicProgress(int diastolicProgress) {
+		this.diastolicProgress = diastolicProgress;
+	}
+
+	public int getHeartRateProgress() {
+		return heartRateProgress;
+	}
+
+	public void setHeartRateProgress(int heartRateProgress) {
+		this.heartRateProgress = heartRateProgress;
+	}
 
 	public int getStrengthGoal() {
 		return strengthGoal;
@@ -79,5 +149,5 @@ public class Quota implements Serializable
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 }
