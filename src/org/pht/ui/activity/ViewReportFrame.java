@@ -125,9 +125,22 @@ public class ViewReportFrame extends JFrame implements Printable {
     }
     
     private String getTable() {
-    	String str = "\t\t\tDays\n";
-    	
-    	return str;
+    	Data data = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
+			PersonalHealthTracker.getMainFrame().getCurrentUser()).getData();
+    	String str = "\n\n\n\n\t\t\t" + jComboBox1.getSelectedItem().toString() + " Averages\n";
+    	switch(jComboBox1.getSelectedItem().toString()) {
+    	case "Weekly":
+        	str += "\n\tBlood Pressure:\t" + data.getWeeklyAverage(DataEntry.SYSTOLIC) + "/" + data.getWeeklyAverage(DataEntry.DIASTOLIC);
+        	str += "\n\tBlood Sugar:\t\t" + data.getWeeklyAverage(DataEntry.BLOOD_SUGAR);
+        	str += "\n\tHeart Rate:\t\t" + data.getWeeklyAverage(DataEntry.RESTING_HEART_RATE);
+    		break;
+    	case "Monthly":
+    		str += "\n\tBlood Pressure:\t" + data.getMonthlyAverage(DataEntry.SYSTOLIC) + "/" + data.getMonthlyAverage(DataEntry.DIASTOLIC);
+        	str += "\n\tBlood Sugar:\t\t" + data.getMonthlyAverage(DataEntry.BLOOD_SUGAR);
+        	str += "\n\tHeart Rate:\t\t" + data.getMonthlyAverage(DataEntry.RESTING_HEART_RATE);
+    		break;
+    	}
+    	return str+"\n";
     }
 
     private void jButton1ActionPerformed(ActionEvent evt) {
