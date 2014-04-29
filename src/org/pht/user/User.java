@@ -6,6 +6,7 @@ import org.pht.user.data.Quota;
 
 public class User implements Serializable {
 	private static final long serialVersionUID = -5183535606282242445L;
+	
 	// Actual data
 	private int height, weight, age;
 	public enum Gender { MALE, FEMALE };
@@ -83,6 +84,7 @@ public class User implements Serializable {
 	public void setQuota(Quota quota) {
 		this.quota = quota;
 	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

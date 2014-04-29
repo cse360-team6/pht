@@ -18,11 +18,12 @@ public class Quota implements Serializable {
 	}
 
 	public void setWeeklyProgress(Data d) {
-		Calendar today = Calendar.getInstance();
 		strengthWeeklyProgress = 0;
 		cardioWeeklyProgress = 0;
 		workWeeklyProgress = 0;
 		sleepWeeklyProgress = 0;
+		Calendar today = Calendar.getInstance();
+		if (d == null) return;
 		for (int i = Calendar.getInstance().get(Calendar.DAY_OF_WEEK); i > -1; i--, today
 				.set(Calendar.DAY_OF_WEEK, i)) {
 			DataEntry tmp = d.getEntry(today);
