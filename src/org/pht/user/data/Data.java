@@ -61,16 +61,21 @@ public class Data implements Serializable {
 	public double getWeeklyAverage(int fieldName) {
 		Double avg = 0.0;
 		Calendar today = Calendar.getInstance();
+		int c = 0;
 		for (int i = 1; i <= 7; i++) {
 			today.set(Calendar.DAY_OF_WEEK, i);
 			DataEntry tmp = getEntry(today);
-			if (tmp != null)
+			if (tmp != null) {
+				c++;
 				if (fieldName == DataEntry.BLOOD_SUGAR)
 					avg += (Double) tmp.get(fieldName);
 				else
 					avg += 0.0 + (Integer)tmp.get(fieldName);
+			}
 		}
-		return avg/7.0;
+		if (c==0)
+			return avg;
+		return avg/(c*1.0);
 	}
 	
 	public ArrayList<Double> getMonthlySummary(int fieldName) {
@@ -98,16 +103,21 @@ public class Data implements Serializable {
 		Double avg = 0.0;
 		Calendar today = Calendar.getInstance();
 		int max = today.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int c = 0;
 		for (int i = 1; i <= max; i++) {
 			today.set(Calendar.DAY_OF_MONTH, i);
 			DataEntry tmp = getEntry(today);
-			if (tmp != null)
+			if (tmp != null) {
+				c++;
 				if (fieldName == DataEntry.BLOOD_SUGAR)
 					avg += (Double) tmp.get(fieldName);
 				else
 					avg += 0.0 + (Integer)tmp.get(fieldName);
+			}
 		}
-		return avg/(0.0+max);
+		if (c==0)
+			return avg;
+		return avg/(c*1.0);
 	}
 	
 	public static long getSerialversionuid() {

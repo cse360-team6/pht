@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import org.pht.PersonalHealthTracker;
 import org.pht.user.User;
+import org.pht.user.data.DataEntry;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -69,18 +70,31 @@ public class PhysicalActivityFrame extends ActivityFrame {
 		            	dateAdded = dateChooser.getCalendar();
 		            	
 		            	User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
+		            	DataEntry de = user.getData().getEntry(dateAdded);
 		            	switch((String)activities.getSelectedItem()) {
 		            		case "Cardio Workout":
-            					user.getData().addEntry(dateAdded, totalMin, 0, 0, 0, 0, 0, 0, 0, memoStored);
+		            			if (de == null)
+	            					user.getData().addEntry(dateAdded, totalMin, 0, 0, 0, 0, 0, 0, 0, memoStored);
+		            			else
+		            				de.setCardioHours(de.getCardioHours() + totalMin);
             					break;
             				case "Strength Workout":
-            					user.getData().addEntry(dateAdded, 0, totalMin, 0, 0, 0, 0, 0, 0, memoStored);
+		            			if (de == null)
+	            					user.getData().addEntry(dateAdded, 0, totalMin, 0, 0, 0, 0, 0, 0, memoStored);
+		            			else
+		            				de.setStrengthHours(de.getStrengthHours() + totalMin);
             					break;
             				case "Work Hours":
-            					user.getData().addEntry(dateAdded, 0, 0, totalMin, 0, 0, 0, 0, 0, memoStored);
+		            			if (de == null)
+	            					user.getData().addEntry(dateAdded, 0, 0, totalMin, 0, 0, 0, 0, 0, memoStored);
+		            			else
+		            				de.setWorkHours(de.getWorkHours() + totalMin);
 	        					break;
 	        				case "Time Slept":
-            					user.getData().addEntry(dateAdded, 0, 0, 0, totalMin, 0, 0, 0, 0, memoStored);
+		            			if (de == null)
+	            					user.getData().addEntry(dateAdded, 0, 0, 0, totalMin, 0, 0, 0, 0, memoStored);
+		            			else
+		            				de.setSleepHours(de.getSleepHours() + totalMin);
 	        					break;
             			}	            	
 		            	PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars(

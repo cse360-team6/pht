@@ -19,6 +19,7 @@ import javax.swing.text.DefaultCaret;
 
 import org.pht.PersonalHealthTracker;
 import org.pht.user.User;
+import org.pht.user.data.DataEntry;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -77,7 +78,13 @@ public class HealthActivityFrame extends ActivityFrame {
 								}
 				            	dateAdded = dateChooser.getCalendar();
 		            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
-		            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0, memoStored);
+		            			DataEntry de = user.getData().getEntry(dateAdded);
+		            			if (de == null)
+		            				user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0, memoStored);
+		            			else {
+		            				de.setSystolic(s);
+		            				de.setDiastolic(d);
+		            			}
 		            			dispose();
 		            		} else {
 		            			notice.setText("Error: Invalid Blood Pressure Sys/Dia");
@@ -111,8 +118,12 @@ public class HealthActivityFrame extends ActivityFrame {
 							}
 			            	dateAdded = dateChooser.getCalendar();
 	            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
-	            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, 0, bloodSugar, memoStored);
-	    	            	dispose();
+	            			DataEntry de = user.getData().getEntry(dateAdded);
+	            			if (de == null)
+	            				user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, 0, bloodSugar, memoStored);
+	            			else
+	            				de.setBloodSugar(bloodSugar);
+	            			dispose();
 	            		} else {
 	            			notice.setText("Error: Invalid Blood Sugar Value");
 	            			return;
@@ -144,7 +155,11 @@ public class HealthActivityFrame extends ActivityFrame {
 	            			memoStored = memo.getText();
 	    	            	typeStored = (String) activities.getSelectedItem();
 	    	            	User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
-	            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, heartRate, 0, memoStored);
+	    	            	DataEntry de = user.getData().getEntry(dateAdded);
+	            			if (de == null)
+	            				user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, heartRate, 0, memoStored);
+	            			else
+	            				de.setRestingHeartRate(heartRate);
 	    	            	dispose();	    	            	
 	            		} else {
 	            			notice.setText("Error: Invalid Blood Sugar Value");
