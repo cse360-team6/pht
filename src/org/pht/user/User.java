@@ -28,6 +28,8 @@ public class User implements Serializable {
 		quota.setWeeklyProgress(this.data);
 		this.name = name;
 	}
+	
+	
 
 	public int getHeight() {
 		return height;

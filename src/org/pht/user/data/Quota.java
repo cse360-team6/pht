@@ -17,6 +17,7 @@ public class Quota implements Serializable {
 	 */
 
 	public final static int STRENGTH = 0, CARDIO = 1, WORK = 2, SLEEP = 3;
+	Data data;
 
 ////	public void main(String args[]) {
 //		Calendar cal = Calendar.getInstance();
@@ -43,6 +44,10 @@ public class Quota implements Serializable {
 	
 	public Quota() {
 
+	}
+	
+	public Quota(Data data) {
+		this.data = data;
 	}
 
 	public void setWeeklyProgress(Data d) {

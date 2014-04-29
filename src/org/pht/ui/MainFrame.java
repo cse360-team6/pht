@@ -162,7 +162,7 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);
 		
-		quotaPanel = new QuotaPanel(this.quota);
+		quotaPanel = new QuotaPanel();
 		quotaPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		quotaPanel.setPreferredSize(new Dimension(300, 400));
 		//quotaLbl = new JLabel("Quota");
