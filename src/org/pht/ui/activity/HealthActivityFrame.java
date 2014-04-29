@@ -16,6 +16,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 
+import org.pht.PersonalHealthTracker;
+import org.pht.user.User;
+
 import com.toedter.calendar.JDateChooser;
 
 public class HealthActivityFrame extends ActivityFrame {
@@ -60,13 +63,15 @@ public class HealthActivityFrame extends ActivityFrame {
 		            		}
 		            		
 		            		if(s < 240 && s > 0 && d < 240 && d > 0) {
-		            			systolic = Integer.parseInt(bp.get(0));
-		            			diastolic = Integer.parseInt(bp.get(1));
+		            			systolic = s;
+		            			diastolic = d;
 		            			memoStored = memo.getText();
 		            			typeStored = (String)activities.getSelectedItem();
 		            			if (dateChooser.getCalendar() != null) {
 				            		dateAdded = dateChooser.getCalendar();
 				            	}
+		            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
+		            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0, memoStored);
 		            			dispose();
 		            		} else {
 		            			notice.setText("Error: Invalid Blood Pressure Sys/Dia");
@@ -87,13 +92,15 @@ public class HealthActivityFrame extends ActivityFrame {
 	            		}
 	            		
 	            		//If the entered values are within a valid range, parse the strings for the integer values and close the window
-	            		if(Integer.parseInt(value.getText()) > 0 && Integer.parseInt(value.getText()) < 400) {
-	            			bloodSugar = Integer.parseInt(value.getText());
+	            		if(bs > 0 && bs < 400) {
+	            			bloodSugar = bs;
 	            			memoStored = memo.getText();
 	    	            	typeStored = (String) activities.getSelectedItem();
 	            			if (dateChooser.getCalendar() != null) {
 			            		dateAdded = dateChooser.getCalendar();
 			            	}
+	            			User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
+	            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, 0, bloodSugar, memoStored);
 	    	            	dispose();
 	            		} else {
 	            			notice.setText("Error: Invalid Blood Sugar Value");
@@ -113,10 +120,12 @@ public class HealthActivityFrame extends ActivityFrame {
 	            		}
 	            		
 	            		//If the entered values are within a valid range, parse the strings for the integer values and close the window
-	            		if(Integer.parseInt(value.getText()) > 0 && Integer.parseInt(value.getText()) < 300) {
-	            			heartRate = Integer.parseInt(value.getText());
+	            		if(hr > 0 && hr < 300) {
+	            			heartRate = hr;
 	            			memoStored = memo.getText();
 	    	            	typeStored = (String) activities.getSelectedItem();
+	    	            	User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
+	            			user.getData().addEntry(dateAdded, 0, 0, 0, 0, 0, 0, heartRate, 0, memoStored);
 	    	            	dispose();	    	            	
 	            		} else {
 	            			notice.setText("Error: Invalid Blood Sugar Value");

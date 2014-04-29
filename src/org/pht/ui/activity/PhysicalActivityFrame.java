@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.pht.PersonalHealthTracker;
+import org.pht.user.User;
+
 import com.toedter.calendar.JDateChooser;
 
 public class PhysicalActivityFrame extends ActivityFrame {
@@ -52,13 +55,29 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	            	if (m < 60 && h < 24) {
 	            		minutesStored = m;
 	            		hoursStored = h;
+	            		int totalMin = (h*60) + m;
 		            	memoStored = memo.getText();
 		            	typeStored = (String) activities.getSelectedItem();
 		            	
 		            	if (dateChooser.getCalendar() != null) {
 		            		dateAdded = dateChooser.getCalendar();
 		            	}
-		            	
+		            	User user = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(PersonalHealthTracker.getMainFrame().getCurrentUser());
+		            	switch((String)activities.getSelectedItem()) {
+		            		case "Cardio Workout":
+            					user.getData().addEntry(dateAdded, totalMin, 0, 0, 0, 0, 0, 0, 0, memoStored);
+            					break;
+            				case "Strength Workout":
+            					user.getData().addEntry(dateAdded, 0, totalMin, 0, 0, 0, 0, 0, 0, memoStored);
+            					break;
+            				case "Work Hours":
+            					user.getData().addEntry(dateAdded, 0, 0, totalMin, 0, 0, 0, 0, 0, memoStored);
+	        					break;
+	        				case "Time Slept":
+            					user.getData().addEntry(dateAdded, 0, 0, 0, totalMin, 0, 0, 0, 0, memoStored);
+	        					break;
+            			}
+		            	user.getData().addEntry(dateAdded, 0, 0, 0, 0, s, d, 0, 0,memoStored);
 		            	dispose();
 		            	
 	            	}
