@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.EOFException;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -23,6 +25,7 @@ import javax.swing.SwingConstants;
 import org.pht.ui.QuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
+import org.pht.user.Users;
 import org.pht.user.data.Quota;
 
 public class MainFrame extends JFrame {
@@ -43,6 +46,8 @@ public class MainFrame extends JFrame {
 	private PhysicalActivityFrame paFrame;
 	private HealthActivityFrame haFrame;
 	private NewUserFrame nuFrame;
+	
+	private Users users;
 	
 	Quota quota;
 	
@@ -151,6 +156,19 @@ public class MainFrame extends JFrame {
 		add(framePanel);
 		setResizable(false);
 		setVisible(true);
+		try {
+			users = new Users();
+		} catch (Exception e1) {
+			if (e1 instanceof EOFException) {
+				if (nuFrame == null || !nuFrame.isVisible())	{            		
+            		nuFrame = new NewUserFrame();
+            		nuFrame.setLocationRelativeTo(centerPanel);
+            	} else {
+            		nuFrame.toFront();
+	            }
+			} else
+			e1.printStackTrace();
+		}
 	}
 	
 	private JPanel setTwoComponents(JComponent a, JComponent b) {
