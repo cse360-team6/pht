@@ -1,14 +1,13 @@
-package org.pht;
+package org.pht.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
 
 
-public class timer extends JFrame{
+public class TimerFrame extends JFrame{
 	
-	 JLabel label = new JLabel("0hours  0minutes  0seconds");	
+	 JLabel label = new JLabel("0 h  0 min  0 sec");	
 
 	 private int sec, min = 0, hr = 0;
 	 private String time;
@@ -31,12 +30,12 @@ public class timer extends JFrame{
 					min = min - 60;
 				}
 				
-				time = hr + "hours  " + min + "minutes  " + sec + "seconds";
+				time = hr + " h  " + min + " min  " + sec + " sec";
 				label.setText(time);
 				
 			}});
 
-	 public timer(){
+	 public TimerFrame() {
 	
 		 		Font f = new Font("Serif", Font.PLAIN, 50);
 		 		label.setFont(f);
@@ -76,24 +75,12 @@ public class timer extends JFrame{
 						min = 0; 
 						hr = 0;
 						
-						time = hr + "hours  " + min + "minutes  " + sec + "seconds";
+						time = hr + " h  " + min + " min  " + sec + " sec";
 						label.setText(time);
 					}
 				});
 				
 			}
-
-
-			
-	public static void main(String args[]){
-		
-		timer t = new timer();
-		t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		t.setSize(600, 200);
-		t.setVisible(true);
-		t.setTitle("Timer");
-	
-	}
 	
 }
 
