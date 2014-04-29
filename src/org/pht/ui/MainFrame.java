@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.EOFException;
 import java.io.IOException;
 
@@ -18,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -25,6 +28,7 @@ import javax.swing.SwingConstants;
 import org.pht.ui.QuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
+import org.pht.user.User;
 import org.pht.user.Users;
 import org.pht.user.data.Quota;
 
@@ -47,12 +51,29 @@ public class MainFrame extends JFrame {
 	private HealthActivityFrame haFrame;
 	private NewUserFrame nuFrame;
 	
-	private Users users;
+	private static Users USERS;
 	
 	Quota quota;
 	
 	public MainFrame() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				int result = JOptionPane.showConfirmDialog(
+			            (JFrame)e.getSource(),
+			            "Are you sure you want to exit the application?",
+			            "Exit Application",
+			            JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					try {
+						USERS.saveUsers();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					((JFrame)e.getSource()).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				}
+			}
+		});
 		setTitle("Personal Health Tracker");
 		setSize(800, 500);
 		framePanel = new JPanel(new BorderLayout());
@@ -157,7 +178,11 @@ public class MainFrame extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		try {
-			users = new Users();
+			USERS = new Users();
+			USERS.loadUsers();
+			for (String key: USERS.getUsers().keySet()) {
+				nameCombo.addItem(key);				
+			}
 		} catch (Exception e1) {
 			if (e1 instanceof EOFException) {
 				if (nuFrame == null || !nuFrame.isVisible())	{            		
@@ -176,6 +201,30 @@ public class MainFrame extends JFrame {
 		res.add(a);
 		res.add(b);
 		return res;
+	}
+	
+	public static Users getUsers() {
+		return USERS;
+	}
+	
+	public String getCurrentUser() {
+		return (String)nameCombo.getSelectedItem();
+	}
+	
+	public void setCurrentUser(String name) {
+		if (USERS.getUsers().containsKey(name)) {
+			boolean res = false;
+			for (int i = 0; i < nameCombo.getItemCount(); i++) {
+				if (nameCombo.getItemAt(i).equals(name)) {
+					res = true;
+					break;
+				}
+			}
+			if (!res)
+				nameCombo.addItem(name);
+			nameCombo.setSelectedItem(name);
+			
+		}
 	}
 	
 }

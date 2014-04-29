@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -19,7 +20,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.pht.user.Users;
+import org.pht.PersonalHealthTracker;
+import org.pht.ui.MainFrame;
+import org.pht.user.User;
+import org.pht.user.User.Gender;
+import org.pht.user.data.Data;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -46,7 +51,7 @@ public class NewUserFrame extends JFrame{
     public NewUserFrame() {
     	// Set title to New User
     	setTitle("New User");
-    	this.setLayout(new GridLayout(7,0));
+    	setLayout(new GridLayout(7,0));
     	
 		//Create universal 'ok' and 'cancel' buttons available for any extended class
 		add = new JButton("Add User");
@@ -79,6 +84,7 @@ public class NewUserFrame extends JFrame{
 		
 		//Add date chooser
 		dateChooser = new JDateChooser();
+		dateChooser.setPreferredSize(new Dimension(150, 25));
 		
 		//Add text fields for entering data
 		nameField = new JTextField();
@@ -100,22 +106,35 @@ public class NewUserFrame extends JFrame{
 						name = nameField.getText();}
 					else
 					{
-						notice.setText("Error: Please Enter a Name");
+						notice.setText("  Error: Please Enter a Name");
 						return;
 					}
-					String gender = genderCombo.getSelectedItem().toString();
+					Gender gender; 
+					if (genderCombo.getSelectedItem().toString().equals("Male")) {
+						gender = Gender.MALE;
+					} else {
+						gender = Gender.FEMALE;
+					}
 					String birthDay = dateChooser.getDateFormatString();
 					if (dateChooser.getCalendar() == null){
-						notice.setText("Error: Please Select Birth Date");
+						notice.setText("  Error: Please Select Birth Date");
+						return;
+					} else if (dateChooser.getCalendar().compareTo(Calendar.getInstance()) > 0) {
+						notice.setText("  Error: Please Select Valid Birth Date");
 						return;
 					}
 					//Use a simple algorithm to calculate age... is approximate and not exact
 					int age = Calendar.getInstance().get(Calendar.YEAR) - dateChooser.getCalendar().get(Calendar.YEAR);
+					try {
+						PersonalHealthTracker.getMainFrame().getUsers().createUser(name, gender, heightInch, weight, age);
+						PersonalHealthTracker.getMainFrame().setCurrentUser(name);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
 					dispose();
-            		}
-				}
+            	}
 			}
-		);
+		});
 		
 		//Add an action listener for the cancel button to close the window
 		cancel.addActionListener(new ActionListener() {
