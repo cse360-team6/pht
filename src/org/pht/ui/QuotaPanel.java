@@ -1,16 +1,26 @@
 package org.pht.ui;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+
+import org.pht.PersonalHealthTracker;
 import org.pht.user.User;
+
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -93,6 +103,7 @@ public class QuotaPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				edit = new EditQuotaFrame();
 				edit.setVisible(true);
+				edit.setLocationRelativeTo(PersonalHealthTracker.getMainFrame().getQuotaPanel());
 			}
 		});
 		btnEditQuota.setBounds(6, 372, 284, 29);

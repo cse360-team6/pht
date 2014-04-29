@@ -58,6 +58,27 @@ public class Data implements Serializable {
 		return al;
 	}
 	
+	public ArrayList<Double> getMonthlySummary(int fieldName) {
+		ArrayList<Double> al = new ArrayList<Double>();
+		Calendar today = Calendar.getInstance();
+		int max = today.getActualMaximum(Calendar.DAY_OF_MONTH);
+		for (int i = 1; i <= max; i++) {
+			today.set(Calendar.DAY_OF_MONTH, i);
+			int week = today.get(Calendar.WEEK_OF_MONTH)-1;
+			DataEntry tmp = getEntry(today);
+			if (al.size() <= week)
+				al.add(0.0);
+			if (tmp == null)
+				al.set(week, al.get(week));
+			else {
+				al.set(week, al.get(week)+(Double) ((Integer)tmp.get(fieldName)/60.0));
+			}
+		}
+		while (al.size() < 6)
+			al.add(0.0);
+		return al;
+	}
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

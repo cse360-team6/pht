@@ -4,159 +4,160 @@ package org.pht.ui.activity;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import org.pht.PersonalHealthTracker;
+import org.pht.user.data.Data;
+import org.pht.user.data.DataEntry;
+
+import com.xeiam.xchart.Chart;
+import com.xeiam.xchart.ChartBuilder;
+import com.xeiam.xchart.XChartPanel;
+import com.xeiam.xchart.StyleManager.ChartTheme;
+import com.xeiam.xchart.StyleManager.ChartType;
+import com.xeiam.xchart.StyleManager.LegendPosition;
+
 import java.awt.print.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
-public class ViewReportFrame extends javax.swing.JFrame {
+public class ViewReportFrame extends JFrame implements Printable {
 
 
-    public ViewReportFrame() {
+    private JComboBox<String> jComboBox1;                  
+    private JButton jButton1;
+    private JButton jButton2;
+    private JScrollPane jScrollPane1;
+    private JTextArea jTextArea1;
+    private JPanel printPanel, chartPanel;
+    
+	public ViewReportFrame() {
         initComponents();
     }
-
-    @SuppressWarnings("unchecked")
                          
     private void initComponents() {
+        jButton1 = new JButton("Print");
+        jButton2 = new JButton("Cancel");
+        jComboBox1 = new JComboBox<String>();
+        jTextArea1 = new JTextArea();
+        jScrollPane1 = new JScrollPane(jTextArea1);
+        chartPanel = new JPanel();
 
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton1.setText("Monthly Report");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton2.setText("Yearly Report");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton3.setText("Daily Report");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Print");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(483, 483, 483)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
-        );
-
-        pack();
-    }// </editor-fold>                        
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-       
-    }                                             
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
-    }                                             
+        jComboBox1.addItem("Weekly");
+        jComboBox1.addItem("Monthly");
+        jComboBox1.addItemListener(new ItemListener() {
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-      
-    }                                             
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				chartPanel.removeAll();
+				chartPanel.add(getChart());
+				jTextArea1.setText(getTable());
+				revalidate();
+				repaint();
+			}
+        	
+        });
+        
+        JPanel optionPanel = new JPanel();
+        optionPanel.add(jComboBox1);
+        optionPanel.add(jButton1);
+        optionPanel.add(jButton2);
+        
+        printPanel = new JPanel(new GridLayout(2,1));
+        printPanel.add(jScrollPane1);
+        chartPanel.add(getChart());
+        printPanel.add(chartPanel);
+		jTextArea1.setText(getTable());
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(printPanel, BorderLayout.CENTER);
+        getContentPane().add(optionPanel, BorderLayout.SOUTH);
+        setSize(565, 825);
+        setResizable(false);
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private XChartPanel getChart() {
+    	if (PersonalHealthTracker.getMainFrame().getUsers() == null)
+			return null;
+		Chart chart = new ChartBuilder().chartType(ChartType.Bar).width(480).height(350).title(jComboBox1.getSelectedItem().toString()+" Review")
+				.xAxisTitle("Day").yAxisTitle("Hours").theme(ChartTheme.GGPlot2).build();
+		Data data = PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
+				PersonalHealthTracker.getMainFrame().getCurrentUser()).getData();
+		switch(jComboBox1.getSelectedItem().toString()) {
+		case "Weekly":
+			ArrayList<String> days = new ArrayList<String>(Arrays.asList(new String[] { "Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat" }));
+			chart.addSeries("Cardio", days, data.getWeeklySummary(DataEntry.CARDIO_HOURS));
+			chart.addSeries("Strength", days, data.getWeeklySummary(DataEntry.STRENGTH_HOURS));
+			chart.addSeries("Work", days, data.getWeeklySummary(DataEntry.WORK_HOURS));
+			chart.addSeries("Sleep", days, data.getWeeklySummary(DataEntry.SLEEP_HOURS));
+			chart.getStyleManager().setYAxisMax(24.0);
+		    chart.getStyleManager().setLegendPosition(LegendPosition.InsideNE); 	
+			break;
+		case "Monthly":
+			ArrayList<String> weeks = new ArrayList<String>(Arrays.asList(new String[] { "1", "2", "3", "4", "5", "6" }));
+			chart.addSeries("Cardio", weeks, data.getMonthlySummary(DataEntry.CARDIO_HOURS));
+			chart.addSeries("Strength", weeks, data.getMonthlySummary(DataEntry.STRENGTH_HOURS));
+			chart.addSeries("Work", weeks, data.getMonthlySummary(DataEntry.WORK_HOURS));
+			chart.addSeries("Sleep", weeks, data.getMonthlySummary(DataEntry.SLEEP_HOURS));
+			chart.getStyleManager().setYAxisMax(168.0);
+		    chart.getStyleManager().setLegendPosition(LegendPosition.InsideNE); 	
+			break;
+		}
+		return new XChartPanel(chart);
+    }
+    
+    private String getTable() {
+    	String str = "\t\t\tDays\n";
+    	
+    	return str;
+    }
 
-        try {
-            boolean ok = jTextArea1.print();
-            if (ok) {
-
-                JOptionPane.showMessageDialog(null, "Done", "Information", JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Printer", "Warning", JOptionPane.ERROR_MESSAGE);
+    private void jButton1ActionPerformed(ActionEvent evt) {
+    	PrinterJob printJob = PrinterJob.getPrinterJob();
+        printJob.setPrintable(this);
+        if (printJob.printDialog()) {
+            try {
+                printJob.print();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         }
-        catch (PrinterException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
+    }    
+    
+    public int print(Graphics g, PageFormat pf, int index) throws
+	    PrinterException {
+	
+		Graphics2D g2 = (Graphics2D) g;
+		if (index >= 1) {
+		    return Printable.NO_SUCH_PAGE;
+		} else {
+		
+		    printPanel.printAll(g2);
+		    return Printable.PAGE_EXISTS;
+		}
+	
+	}
 
-        /* The job did not successfully complete */// TODO add your handling code here:
-    }                                        
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                        
-
-	            if (evt.getSource() instanceof JButton) 
-	            	dispose();
+    private void jButton2ActionPerformed(ActionEvent evt) {                                        
+    	dispose();
     } 
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    // End of variables declaration                   
+    
 }

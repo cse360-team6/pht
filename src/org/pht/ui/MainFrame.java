@@ -34,6 +34,7 @@ import org.pht.PersonalHealthTracker;
 import org.pht.ui.QuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
+import org.pht.ui.activity.ViewReportFrame;
 import org.pht.user.User;
 import org.pht.user.Users;
 import org.pht.user.data.Data;
@@ -65,6 +66,7 @@ public class MainFrame extends JFrame {
 	private PhysicalActivityFrame paFrame;
 	private HealthActivityFrame haFrame;
 	private NewUserFrame nuFrame;
+	private ViewReportFrame vrFrame;
 	
 	private static Users USERS;
 	
@@ -192,7 +194,13 @@ public class MainFrame extends JFrame {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            if (e.getSource() instanceof JButton) {
-	            	
+	            	if (vrFrame == null || !vrFrame.isVisible())	{
+	            		vrFrame = new ViewReportFrame();
+	            		vrFrame.setVisible(true);
+	            		vrFrame.setLocationRelativeTo(centerPanel);
+	            	} else {
+	            		vrFrame.toFront();
+	            	}
 	            }
 	        }
 		});
