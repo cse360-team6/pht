@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
-class Users {
+public class Users {
     private HashMap<String, User> users;
 	private File file;
 	

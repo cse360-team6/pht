@@ -126,6 +126,7 @@ public class NewUserFrame extends JFrame{
 		add(buttons);
 		
 		setSize(250, 300);	
+		setResizable(false);
 		setVisible(true);
 	}
     
