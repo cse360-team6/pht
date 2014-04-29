@@ -1,8 +1,6 @@
 package org.pht.ui;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -13,23 +11,18 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import org.pht.user.User;
-import org.pht.user.data.Data;
-import org.pht.user.data.Quota;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 
-public class QuotaPanel extends JPanel implements ActionListener {
+public class QuotaPanel extends JPanel {
 	private static final long serialVersionUID = 1446567741568668883L;
 	JProgressBar strengthBar, cardioBar, workBar, sleepBar;
 
 	private User user;
 	private JButton editButton;
-	private final Action action = new SwingAction();
 	private EditQuotaFrame edit;
 
 	public QuotaPanel() {
@@ -109,15 +102,14 @@ public class QuotaPanel extends JPanel implements ActionListener {
 
 	public void updateProgressBars(User user) {
 		this.user = user;
-		this.cardioBar.setValue(user.getQuota().getCardioWeeklyProgress());
-		this.strengthBar.setValue(user.getQuota().getStrengthWeeklyProgress());
-		this.workBar.setValue(user.getQuota().getWorkWeeklyProgress());
-		this.sleepBar.setValue(user.getQuota().getSleepWeeklyProgress());
-
-		this.cardioBar.setMaximum(user.getQuota().getCardioGoal());
-		this.strengthBar.setMaximum(user.getQuota().getStrengthGoal());
-		this.workBar.setMaximum(user.getQuota().getWorkGoal());
-		this.sleepBar.setMaximum(user.getQuota().getSleepGoal());
+		this.user.getQuota().setWeeklyProgress(this.user.getData());
+		this.cardioBar.setValue((int) (user.getQuota().getCardioWeeklyProgress()/60.0));
+		this.strengthBar.setValue((int) (user.getQuota().getStrengthWeeklyProgress()/60.0));
+		this.workBar.setValue((int) (user.getQuota().getWorkWeeklyProgress()/60.0));
+		this.sleepBar.setValue((int) (user.getQuota().getSleepWeeklyProgress()/60.0));
+		System.out.println(user.getQuota().getCardioWeeklyProgress()/60.0);
+		revalidate();
+		repaint();
 	}
 	
 	public void updateProgressBars(int cgoal, int sgoal, int wgoal, int sleepgoal) {
@@ -125,18 +117,7 @@ public class QuotaPanel extends JPanel implements ActionListener {
 		this.strengthBar.setMaximum(sgoal);
 		this.workBar.setMaximum(wgoal);
 		this.sleepBar.setMaximum(sleepgoal);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		updateProgressBars(this.user);
-	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
+		revalidate();
+		repaint();
 	}
 }

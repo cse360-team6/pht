@@ -55,7 +55,6 @@ public class Data implements Serializable {
 				al.add((Double) ((Integer)tmp.get(fieldName)/60.0));
 			}
 		}
-		System.out.println(al.toString());
 		return al;
 	}
 	

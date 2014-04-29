@@ -144,26 +144,11 @@ public class ViewReportFrame extends javax.swing.JFrame {
         /* The job did not successfully complete */// TODO add your handling code here:
     }                                        
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                        
 
 	            if (evt.getSource() instanceof JButton) 
 	            	dispose();
-	            
-
-        // TODO add your handling code here:
-    }                                        
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewReportFrame().setVisible(true);
-            }
-        });
-    }
+    } 
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
