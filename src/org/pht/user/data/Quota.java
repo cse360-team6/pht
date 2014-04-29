@@ -5,14 +5,19 @@ import java.util.Calendar;
 
 public class Quota implements Serializable {
 	private static final long serialVersionUID = 3504938562290978942L;
-	private int strengthGoal, cardioGoal, workGoal, sleepGoal, systolicGoal,
-			diastolicGoal, heartRateGoal, strengthWeeklyProgress,
-			cardioWeeklyProgress, workWeeklyProgress, sleepWeeklyProgress,
-			systolicWeeklyProgress, diastolicWeeklyProgress,
-			heartRateWeeklyProgress;
-	private double bloodSugarGoal, bloodSugarWeeklyProgress;
+	private int strengthGoal, cardioGoal, workGoal, sleepGoal,
+			strengthWeeklyProgress, cardioWeeklyProgress, workWeeklyProgress,
+			sleepWeeklyProgress;
+
+	/*
+	 * Only if we can get that far private int systolicGoal, diastolicGoal,
+	 * heartRateGoal, systolicWeeklyProgress, diastolicWeeklyProgress,
+	 * heartRateWeeklyProgress; 
+	 * private double bloodSugarGoal, bloodSugarWeeklyProgress;
+	 */
+
 	public final static int STRENGTH = 0, CARDIO = 1, WORK = 2, SLEEP = 3;
-	
+
 	public Quota() {
 
 	}
@@ -23,7 +28,8 @@ public class Quota implements Serializable {
 		workWeeklyProgress = 0;
 		sleepWeeklyProgress = 0;
 		Calendar today = Calendar.getInstance();
-		if (d == null) return;
+		if (d == null)
+			return;
 		for (int i = Calendar.getInstance().get(Calendar.DAY_OF_WEEK); i > -1; i--, today
 				.set(Calendar.DAY_OF_WEEK, i)) {
 			DataEntry tmp = d.getEntry(today);
@@ -42,14 +48,6 @@ public class Quota implements Serializable {
 		prog[SLEEP] = this.sleepWeeklyProgress;
 
 		return prog;
-	}
-
-	public double getBloodSugarWeeklyProgress() {
-		return bloodSugarWeeklyProgress;
-	}
-
-	public void setBloodSugarWeeklyProgress(double bloodSugarWeeklyProgress) {
-		this.bloodSugarWeeklyProgress = bloodSugarWeeklyProgress;
 	}
 
 	public int getStrengthWeeklyProgress() {
@@ -84,30 +82,6 @@ public class Quota implements Serializable {
 		this.sleepWeeklyProgress = sleepWeeklyProgress;
 	}
 
-	public int getSystolicWeeklyProgress() {
-		return systolicWeeklyProgress;
-	}
-
-	public void setSystolicWeeklyProgress(int systolicWeeklyProgress) {
-		this.systolicWeeklyProgress = systolicWeeklyProgress;
-	}
-
-	public int getDiastolicWeeklyProgress() {
-		return diastolicWeeklyProgress;
-	}
-
-	public void setDiastolicWeeklyProgress(int diastolicWeeklyProgress) {
-		this.diastolicWeeklyProgress = diastolicWeeklyProgress;
-	}
-
-	public int getHeartRateWeeklyProgress() {
-		return heartRateWeeklyProgress;
-	}
-
-	public void setHeartRateWeeklyProgress(int heartRateWeeklyProgress) {
-		this.heartRateWeeklyProgress = heartRateWeeklyProgress;
-	}
-
 	public int getStrengthGoal() {
 		return strengthGoal;
 	}
@@ -139,40 +113,73 @@ public class Quota implements Serializable {
 	public void setSleepGoal(int sleepGoal) {
 		this.sleepGoal = sleepGoal;
 	}
-
-	public int getSystolicGoal() {
-		return systolicGoal;
-	}
-
-	public void setSystolicGoal(int systolicGoal) {
-		this.systolicGoal = systolicGoal;
-	}
-
-	public int getDiastolicGoal() {
-		return diastolicGoal;
-	}
-
-	public void setDiastolicGoal(int diastolicGoal) {
-		this.diastolicGoal = diastolicGoal;
-	}
-
-	public int getHeartRateGoal() {
-		return heartRateGoal;
-	}
-
-	public void setHeartRateGoal(int heartRateGoal) {
-		this.heartRateGoal = heartRateGoal;
-	}
-
-	public double getBloodSugarGoal() {
-		return bloodSugarGoal;
-	}
-
-	public void setBloodSugarGoal(double bloodSugarGoal) {
-		this.bloodSugarGoal = bloodSugarGoal;
-	}
-
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+//	public int getSystolicWeeklyProgress() {
+//		return systolicWeeklyProgress;
+//	}
+//
+//	public void setSystolicWeeklyProgress(int systolicWeeklyProgress) {
+//		this.systolicWeeklyProgress = systolicWeeklyProgress;
+//	}
+//
+//	public int getDiastolicWeeklyProgress() {
+//		return diastolicWeeklyProgress;
+//	}
+//
+//	public void setDiastolicWeeklyProgress(int diastolicWeeklyProgress) {
+//		this.diastolicWeeklyProgress = diastolicWeeklyProgress;
+//	}
+//
+//	public int getHeartRateWeeklyProgress() {
+//		return heartRateWeeklyProgress;
+//	}
+//
+//	public void setHeartRateWeeklyProgress(int heartRateWeeklyProgress) {
+//		this.heartRateWeeklyProgress = heartRateWeeklyProgress;
+//	}
+//
+//	public int getSystolicGoal() {
+//		return systolicGoal;
+//	}
+//
+//	public void setSystolicGoal(int systolicGoal) {
+//		this.systolicGoal = systolicGoal;
+//	}
+//
+//	public int getDiastolicGoal() {
+//		return diastolicGoal;
+//	}
+//
+//	public void setDiastolicGoal(int diastolicGoal) {
+//		this.diastolicGoal = diastolicGoal;
+//	}
+//
+//	public int getHeartRateGoal() {
+//		return heartRateGoal;
+//	}
+//
+//	public void setHeartRateGoal(int heartRateGoal) {
+//		this.heartRateGoal = heartRateGoal;
+//	}
+//
+//	public double getBloodSugarGoal() {
+//		return bloodSugarGoal;
+//	}
+//
+//	public void setBloodSugarGoal(double bloodSugarGoal) {
+//		this.bloodSugarGoal = bloodSugarGoal;
+//	}
+//
+//
+//	public double getBloodSugarWeeklyProgress() {
+//		return bloodSugarWeeklyProgress;
+//	}
+//
+//	public void setBloodSugarWeeklyProgress(double bloodSugarWeeklyProgress) {
+//		this.bloodSugarWeeklyProgress = bloodSugarWeeklyProgress;
+//	}
 }
