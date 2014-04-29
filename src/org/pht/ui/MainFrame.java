@@ -20,13 +20,12 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import org.pht.quota.PHTQuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
 
 public class MainFrame extends JFrame {
 	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
-	private PHTQuotaPanel quotaPanel;
+	private QuotaPanel quotaPanel;
 	private JButton addHealthBtn, addPhysBtn, viewRepBtn, addPersBtn;
 	
 	//components for personPanel
@@ -133,7 +132,7 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);
 		
-		quotaPanel = new PHTQuotaPanel();
+		quotaPanel = new QuotaPanel();
 		quotaPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		quotaPanel.setPreferredSize(new Dimension(300, 400));
 		//quotaLbl = new JLabel("Quota");

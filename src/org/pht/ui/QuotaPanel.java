@@ -1,4 +1,4 @@
-package org.pht.quota;
+package org.pht.ui;
 
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
@@ -15,11 +15,11 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 
-public class PHTQuotaPanel extends JPanel
+public class QuotaPanel extends JPanel
 {
     private static final long serialVersionUID = 1446567741568668883L;
 
-    public PHTQuotaPanel()
+    public QuotaPanel()
     {
         setLayout(null);
         

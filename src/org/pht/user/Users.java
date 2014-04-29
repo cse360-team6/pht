@@ -12,10 +12,10 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 
 public class Users {
-    private HashMap<String, User> users;
+	private HashMap<String, User> users;
 	private File file;
-	
-	public Users() throws ClassNotFoundException, IOException {
+
+	public Users() throws ClassNotFoundException, IOException, EOFException {
 		String root = System.getProperty("user.home") + "/pht/usrdata";
 		Files.createDirectories(Paths.get(root));
 		file = Paths.get(root + "data.txt").toFile();
@@ -23,7 +23,7 @@ public class Users {
 			file.createNewFile();
 		this.loadUsers();
 	}
-	
+
 	public void loadUsers() throws IOException, ClassNotFoundException, EOFException {
 		FileInputStream fileIn = null;
 		ObjectInputStream in = null;
@@ -39,7 +39,7 @@ public class Users {
 			fileIn.close();
 		}
 	}
-	
+
 	public void saveUsers() throws IOException {
 		FileOutputStream fileOut = null;
 		ObjectOutputStream out = null;
@@ -48,27 +48,27 @@ public class Users {
 			out = new ObjectOutputStream(fileOut);
 			out.writeObject(users);
 		} catch (Exception e) {
-			
+
 		} finally {
 			out.close();
 			fileOut.close();
 		}
 	}
-	
-	
+
 	public User user(String name) {
 		return users.get(name);
 	}
-	
+
 	public void deleteUser(String name) {
 		users.remove(name);
 	}
-	
+
 	public boolean userExists(String name) {
 		return users.containsKey(name);
 	}
-	
-	public void createUser(String name) throws ClassNotFoundException, IOException {
+
+	public void createUser(String name) throws ClassNotFoundException,
+			IOException {
 		User tmp = new User(name);
 		users.put(name, tmp);
 	}

@@ -11,7 +11,7 @@ public class PersonalHealthTracker
 {
     public static void main(String[] args)
     {
-        PHTData data = new PHTData();
+    	
         MainFrame mainFrame = new MainFrame();
     }
 }
