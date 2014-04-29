@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+import org.pht.user.User.Gender;
+
 public class Users {
 	private HashMap<String, User> users;
 	private File file;
@@ -24,7 +26,8 @@ public class Users {
 		this.loadUsers();
 	}
 
-	public void loadUsers() throws IOException, ClassNotFoundException, EOFException {
+	public void loadUsers() throws IOException, ClassNotFoundException,
+			EOFException {
 		FileInputStream fileIn = null;
 		ObjectInputStream in = null;
 		try {
@@ -35,8 +38,10 @@ public class Users {
 			users = new HashMap<String, User>();
 			throw new EOFException();
 		} finally {
-			if (in != null) in.close();
-			if (in != null) fileIn.close();
+			if (in != null)
+				in.close();
+			if (in != null)
+				fileIn.close();
 		}
 	}
 
@@ -50,8 +55,10 @@ public class Users {
 		} catch (Exception e) {
 
 		} finally {
-			if (out != null) out.close();
-			if (fileOut != null) fileOut.close();
+			if (out != null)
+				out.close();
+			if (fileOut != null)
+				fileOut.close();
 		}
 	}
 
@@ -67,9 +74,9 @@ public class Users {
 		return users.containsKey(name);
 	}
 
-	public void createUser(String name) throws ClassNotFoundException,
-			IOException {
-		User tmp = new User(name);
+	public void createUser(String name, Gender gender, int height, int weight,
+			int age) throws ClassNotFoundException, IOException {
+		User tmp = new User(name, gender, height, weight, age);
 		users.put(name, tmp);
 	}
 

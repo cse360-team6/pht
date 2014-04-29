@@ -6,20 +6,43 @@ import java.util.Calendar;
 public class Quota implements Serializable {
 	private static final long serialVersionUID = 3504938562290978942L;
 	private int strengthGoal, cardioGoal, workGoal, sleepGoal, systolicGoal,
-			diastolicGoal, heartRateGoal, strengthWeeklyProgress, cardioWeeklyProgress,
-			workWeeklyProgress, sleepWeeklyProgress, systolicWeeklyProgress, diastolicWeeklyProgress,
+			diastolicGoal, heartRateGoal, strengthWeeklyProgress,
+			cardioWeeklyProgress, workWeeklyProgress, sleepWeeklyProgress,
+			systolicWeeklyProgress, diastolicWeeklyProgress,
 			heartRateWeeklyProgress;
 	private double bloodSugarGoal, bloodSugarWeeklyProgress;
+	public final static int STRENGTH = 0, CARDIO = 1, WORK = 2, SLEEP = 3;
+	
+	public Quota() {
 
-	public Quota() { 
-		this.calculateWeeklyProgress();
 	}
-	
-	public void calculateWeeklyProgress() {
+
+	public void setWeeklyProgress(Data d) {
 		Calendar today = Calendar.getInstance();
-		Long days = new Long(CALENDAR.calToDays(today));
+		strengthWeeklyProgress = 0;
+		cardioWeeklyProgress = 0;
+		workWeeklyProgress = 0;
+		sleepWeeklyProgress = 0;
+		for (int i = Calendar.getInstance().get(Calendar.DAY_OF_WEEK); i > -1; i--, today
+				.set(Calendar.DAY_OF_WEEK, i)) {
+			DataEntry tmp = d.getEntry(today);
+			this.strengthWeeklyProgress += tmp.getStrengthHours();
+			this.cardioWeeklyProgress += tmp.getCardioHours();
+			this.workWeeklyProgress += tmp.getWorkHours();
+			this.sleepWeeklyProgress += tmp.getSleepHours();
+		}
 	}
-	
+
+	public int[] getWeeklyProgress() {
+		int prog[] = new int[4];
+		prog[STRENGTH] = this.strengthWeeklyProgress;
+		prog[CARDIO] = this.cardioWeeklyProgress;
+		prog[WORK] = this.workWeeklyProgress;
+		prog[SLEEP] = this.sleepWeeklyProgress;
+
+		return prog;
+	}
+
 	public double getBloodSugarWeeklyProgress() {
 		return bloodSugarWeeklyProgress;
 	}
@@ -27,7 +50,7 @@ public class Quota implements Serializable {
 	public void setBloodSugarWeeklyProgress(double bloodSugarWeeklyProgress) {
 		this.bloodSugarWeeklyProgress = bloodSugarWeeklyProgress;
 	}
-	
+
 	public int getStrengthWeeklyProgress() {
 		return strengthWeeklyProgress;
 	}
@@ -151,5 +174,4 @@ public class Quota implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 }
