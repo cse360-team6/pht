@@ -1,16 +1,27 @@
 package org.pht.ui;
 
 import javax.swing.JPanel;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
+
 import java.awt.Component;
+
 import javax.swing.Box;
+
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JTextPane;
+
+import org.pht.user.data.Quota;
+
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -19,8 +30,10 @@ public class QuotaPanel extends JPanel
 {
     private static final long serialVersionUID = 1446567741568668883L;
 
-    public QuotaPanel()
+    private Quota quota;
+    public QuotaPanel(Quota quota)
     {
+    	this.quota = quota;
         setLayout(null);
         
         JPanel labelPanel = new JPanel();

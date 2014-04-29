@@ -1,6 +1,7 @@
 package org.pht.user.data;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class Quota implements Serializable {
 	private static final long serialVersionUID = 3504938562290978942L;
@@ -15,7 +16,7 @@ public class Quota implements Serializable {
 	}
 	
 	public void calculateProgress() {
-		
+		Calendar today = Calendar.getInstance();
 	}
 	
 	public double getBloodSugarProgress() {

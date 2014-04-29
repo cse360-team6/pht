@@ -20,9 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import org.pht.quota.PHTQuotaPanel;
+import org.pht.ui.QuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
+import org.pht.user.data.Quota;
 
 public class MainFrame extends JFrame {
 	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
@@ -42,6 +43,8 @@ public class MainFrame extends JFrame {
 	private PhysicalActivityFrame paFrame;
 	private HealthActivityFrame haFrame;
 	private NewUserFrame nuFrame;
+	
+	Quota quota;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -133,7 +136,7 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);
 		
-		quotaPanel = new QuotaPanel();
+		quotaPanel = new QuotaPanel(this.quota);
 		quotaPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		quotaPanel.setPreferredSize(new Dimension(300, 400));
 		//quotaLbl = new JLabel("Quota");
