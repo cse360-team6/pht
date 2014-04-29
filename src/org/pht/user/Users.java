@@ -1,7 +1,9 @@
 package org.pht.user;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,27 +24,34 @@ public class Users {
 		this.loadUsers();
 	}
 	
-	public boolean loadUsers() throws IOException, ClassNotFoundException, EOFException {
+	public void loadUsers() throws IOException, ClassNotFoundException, EOFException {
+		FileInputStream fileIn = null;
+		ObjectInputStream in = null;
 		try {
-			FileInputStream fileIn = new FileInputStream(file);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+			fileIn = new FileInputStream(file);
+			in = new ObjectInputStream(fileIn);
 			users = (HashMap<String, User>) in.readObject();
 		} catch (EOFException e) {
 			users = new HashMap<String, User>();
-			throw new EOFException;
+			throw new EOFException();
 		} finally {
-			if (in != null) in.close();
-			if (fileIn != null) fileIn.close();
+			in.close();
+			fileIn.close();
 		}
 	}
 	
 	public void saveUsers() throws IOException {
+		FileOutputStream fileOut = null;
+		ObjectOutputStream out = null;
 		try {
-			FileOutputStream fileOut = new FileOutputStream(file);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			fileOut = new FileOutputStream(file);
+			out = new ObjectOutputStream(fileOut);
 			out.writeObject(users);
 		} catch (Exception e) {
 			
+		} finally {
+			out.close();
+			fileOut.close();
 		}
 	}
 	
