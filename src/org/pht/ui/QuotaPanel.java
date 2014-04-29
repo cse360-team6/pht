@@ -1,38 +1,41 @@
 package org.pht.ui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import java.awt.FlowLayout;
-
 import javax.swing.JLabel;
-
 import java.awt.Font;
-
 import javax.swing.SwingConstants;
 import javax.swing.JProgressBar;
-
 import java.awt.Component;
-
 import javax.swing.Box;
-
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JTextPane;
-
 import org.pht.user.User;
 import org.pht.user.data.Data;
 import org.pht.user.data.Quota;
-
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
-public class QuotaPanel extends JPanel {
+public class QuotaPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1446567741568668883L;
 	JProgressBar strengthBar, cardioBar, workBar, sleepBar;
 
+	private User user;
+	private JButton editButton;
+	private final Action action = new SwingAction();
+	private EditQuotaFrame edit;
+
 	public QuotaPanel() {
+		
+		this.user = null;
+		
 		setLayout(null);
 
 		JPanel labelPanel = new JPanel();
@@ -80,33 +83,6 @@ public class QuotaPanel extends JPanel {
 		sleepBar.setString("Sleep");
 		sleepBar.setStringPainted(true);
 
-		// JProgressBar heartRateBar = new JProgressBar();
-		// progressPanel.add(heartRateBar);
-		// heartRateBar.setString("Resting Heart Rate");
-		// heartRateBar.setStringPainted(true);
-		//
-		// JProgressBar systolicBar = new JProgressBar();
-		// progressPanel.add(systolicBar);
-		// systolicBar.setString("Systolic");
-		// systolicBar.setStringPainted(true);
-		//
-		// JProgressBar diastolicBar = new JProgressBar();
-		// progressPanel.add(diastolicBar);
-		// diastolicBar.setString("Diastolic");
-		// diastolicBar.setStringPainted(true);
-		//
-		// JProgressBar bloodSugarBar = new JProgressBar();
-		// progressPanel.add(bloodSugarBar);
-		// bloodSugarBar.setStringPainted(true);
-		// bloodSugarBar.setString("Blood Sugar");
-
-		/*
-		 * Set progress bars
-		 */
-		JButton editButton = new JButton("Edit Personal Goals");
-		editButton.setBounds(6, 365, 288, 29);
-		add(editButton);
-
 		JPanel textAlertPanel = new JPanel();
 		textAlertPanel.setBounds(10, 277, 280, 83);
 		add(textAlertPanel);
@@ -118,9 +94,21 @@ public class QuotaPanel extends JPanel {
 		textAlertPane
 				.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		textAlertPanel.add(textAlertPane);
+		
+		JButton btnEditQuota = new JButton("Edit Quota");
+		btnEditQuota.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				edit = new EditQuotaFrame();
+				edit.setVisible(true);
+			}
+		});
+		btnEditQuota.setBounds(6, 372, 284, 29);
+		add(btnEditQuota);
+
 	}
 
 	public void updateProgressBars(User user) {
+		this.user = user;
 		this.cardioBar.setValue(user.getQuota().getCardioWeeklyProgress());
 		this.strengthBar.setValue(user.getQuota().getStrengthWeeklyProgress());
 		this.workBar.setValue(user.getQuota().getWorkWeeklyProgress());
@@ -130,5 +118,25 @@ public class QuotaPanel extends JPanel {
 		this.strengthBar.setMaximum(user.getQuota().getStrengthGoal());
 		this.workBar.setMaximum(user.getQuota().getWorkGoal());
 		this.sleepBar.setMaximum(user.getQuota().getSleepGoal());
+	}
+	
+	public void updateProgressBars(int cgoal, int sgoal, int wgoal, int sleepgoal) {
+		this.cardioBar.setMaximum(cgoal);
+		this.strengthBar.setMaximum(sgoal);
+		this.workBar.setMaximum(wgoal);
+		this.sleepBar.setMaximum(sleepgoal);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		updateProgressBars(this.user);
+	}
+	private class SwingAction extends AbstractAction {
+		public SwingAction() {
+			putValue(NAME, "SwingAction");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+		}
 	}
 }

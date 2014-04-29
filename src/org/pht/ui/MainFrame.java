@@ -34,7 +34,7 @@ import org.pht.user.data.Quota;
 
 public class MainFrame extends JFrame {
 	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
-	private QuotaPanel quotaPanel;
+	private static QuotaPanel quotaPanel;
 	private JButton addHealthBtn, addPhysBtn, viewRepBtn, addPersBtn;
 	
 	//components for personPanel
@@ -205,6 +205,10 @@ public class MainFrame extends JFrame {
 	
 	public static Users getUsers() {
 		return USERS;
+	}
+	
+	public static QuotaPanel getQuotaPanel() {
+		return quotaPanel;
 	}
 	
 	public String getCurrentUser() {

@@ -135,7 +135,7 @@ public class NewUserFrame extends JFrame{
             	}
 			}
 		});
-		
+
 		//Add an action listener for the cancel button to close the window
 		cancel.addActionListener(new ActionListener() {
 	        @Override
