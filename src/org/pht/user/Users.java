@@ -23,7 +23,6 @@ public class Users {
 		file = Paths.get(root + "data.txt").toFile();
 		if (!file.exists())
 			file.createNewFile();
-		this.loadUsers();
 	}
 
 	public void loadUsers() throws IOException, ClassNotFoundException,
