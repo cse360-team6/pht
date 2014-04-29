@@ -1,11 +1,15 @@
+package org.pht.ui.activity;
 
-
-import java.awt.event.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.awt.print.*;
-import java.io.*;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 
 public class timer extends JFrame{
@@ -48,7 +52,6 @@ public class timer extends JFrame{
 				JButton stop = new JButton("Stop");
 				JButton reset = new JButton("Reset");
 				JButton save = new JButton("Save");
-
 				
 				setLayout(new FlowLayout());
 				add(label);
@@ -56,10 +59,6 @@ public class timer extends JFrame{
 				add(stop);
 				add(reset);
 				add(save);
-
-				
-
-		       
 				
 			
 				
@@ -89,14 +88,19 @@ public class timer extends JFrame{
 					}
 				});
 				
-				save.addActionListener(new ActionListener(){
+				save.addActionListener(new ActionListener(){		
 					public void actionPerformed (ActionEvent event){
-						
-						return store;
-						}
-						
+					
+						String fName = "TimerOut.txt";
+						try{
+							
+							Writer w = new FileWriter(fName);
+							w.write(Integer.toString(store));
+							w.close();
+							
+						}catch (IOException io){io.printStackTrace();}
 					}
-				});
+						});
 				
 			}
 
@@ -109,7 +113,7 @@ public class timer extends JFrame{
 		t.setSize(600, 200);
 		t.setVisible(true);
 		t.setTitle("Timer");
-
+	
 	}
 	
 }
