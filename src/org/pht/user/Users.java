@@ -35,8 +35,8 @@ public class Users {
 			users = new HashMap<String, User>();
 			throw new EOFException();
 		} finally {
-			in.close();
-			fileIn.close();
+			if (in != null) in.close();
+			if (in != null) fileIn.close();
 		}
 	}
 
@@ -50,8 +50,8 @@ public class Users {
 		} catch (Exception e) {
 
 		} finally {
-			out.close();
-			fileOut.close();
+			if (out != null) out.close();
+			if (fileOut != null) fileOut.close();
 		}
 	}
 

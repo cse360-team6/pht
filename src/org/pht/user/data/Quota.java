@@ -6,81 +6,82 @@ import java.util.Calendar;
 public class Quota implements Serializable {
 	private static final long serialVersionUID = 3504938562290978942L;
 	private int strengthGoal, cardioGoal, workGoal, sleepGoal, systolicGoal,
-			diastolicGoal, heartRateGoal, strengthProgress, cardioProgress,
-			workProgress, sleepProgress, systolicProgress, diastolicProgress,
-			heartRateProgress;
-	private double bloodSugarGoal, bloodSugarProgress;
+			diastolicGoal, heartRateGoal, strengthWeeklyProgress, cardioWeeklyProgress,
+			workWeeklyProgress, sleepWeeklyProgress, systolicWeeklyProgress, diastolicWeeklyProgress,
+			heartRateWeeklyProgress;
+	private double bloodSugarGoal, bloodSugarWeeklyProgress;
 
 	public Quota() { 
-		this.calculateProgress();
+		this.calculateWeeklyProgress();
 	}
 	
-	public void calculateProgress() {
+	public void calculateWeeklyProgress() {
 		Calendar today = Calendar.getInstance();
+		Long days = new Long(CALENDAR.calToDays(today));
 	}
 	
-	public double getBloodSugarProgress() {
-		return bloodSugarProgress;
+	public double getBloodSugarWeeklyProgress() {
+		return bloodSugarWeeklyProgress;
 	}
 
-	public void setBloodSugarProgress(double bloodSugarProgress) {
-		this.bloodSugarProgress = bloodSugarProgress;
+	public void setBloodSugarWeeklyProgress(double bloodSugarWeeklyProgress) {
+		this.bloodSugarWeeklyProgress = bloodSugarWeeklyProgress;
 	}
 	
-	public int getStrengthProgress() {
-		return strengthProgress;
+	public int getStrengthWeeklyProgress() {
+		return strengthWeeklyProgress;
 	}
 
-	public void setStrengthProgress(int strengthProgress) {
-		this.strengthProgress = strengthProgress;
+	public void setStrengthWeeklyProgress(int strengthWeeklyProgress) {
+		this.strengthWeeklyProgress = strengthWeeklyProgress;
 	}
 
-	public int getCardioProgress() {
-		return cardioProgress;
+	public int getCardioWeeklyProgress() {
+		return cardioWeeklyProgress;
 	}
 
-	public void setCardioProgress(int cardioProgress) {
-		this.cardioProgress = cardioProgress;
+	public void setCardioWeeklyProgress(int cardioWeeklyProgress) {
+		this.cardioWeeklyProgress = cardioWeeklyProgress;
 	}
 
-	public int getWorkProgress() {
-		return workProgress;
+	public int getWorkWeeklyProgress() {
+		return workWeeklyProgress;
 	}
 
-	public void setWorkProgress(int workProgress) {
-		this.workProgress = workProgress;
+	public void setWorkWeeklyProgress(int workWeeklyProgress) {
+		this.workWeeklyProgress = workWeeklyProgress;
 	}
 
-	public int getSleepProgress() {
-		return sleepProgress;
+	public int getSleepWeeklyProgress() {
+		return sleepWeeklyProgress;
 	}
 
-	public void setSleepProgress(int sleepProgress) {
-		this.sleepProgress = sleepProgress;
+	public void setSleepWeeklyProgress(int sleepWeeklyProgress) {
+		this.sleepWeeklyProgress = sleepWeeklyProgress;
 	}
 
-	public int getSystolicProgress() {
-		return systolicProgress;
+	public int getSystolicWeeklyProgress() {
+		return systolicWeeklyProgress;
 	}
 
-	public void setSystolicProgress(int systolicProgress) {
-		this.systolicProgress = systolicProgress;
+	public void setSystolicWeeklyProgress(int systolicWeeklyProgress) {
+		this.systolicWeeklyProgress = systolicWeeklyProgress;
 	}
 
-	public int getDiastolicProgress() {
-		return diastolicProgress;
+	public int getDiastolicWeeklyProgress() {
+		return diastolicWeeklyProgress;
 	}
 
-	public void setDiastolicProgress(int diastolicProgress) {
-		this.diastolicProgress = diastolicProgress;
+	public void setDiastolicWeeklyProgress(int diastolicWeeklyProgress) {
+		this.diastolicWeeklyProgress = diastolicWeeklyProgress;
 	}
 
-	public int getHeartRateProgress() {
-		return heartRateProgress;
+	public int getHeartRateWeeklyProgress() {
+		return heartRateWeeklyProgress;
 	}
 
-	public void setHeartRateProgress(int heartRateProgress) {
-		this.heartRateProgress = heartRateProgress;
+	public void setHeartRateWeeklyProgress(int heartRateWeeklyProgress) {
+		this.heartRateWeeklyProgress = heartRateWeeklyProgress;
 	}
 
 	public int getStrengthGoal() {
