@@ -66,11 +66,23 @@ public class Data implements Serializable {
 			today.set(Calendar.DAY_OF_WEEK, i);
 			DataEntry tmp = getEntry(today);
 			if (tmp != null) {
-				c++;
-				if (fieldName == DataEntry.BLOOD_SUGAR)
-					avg += (Double) tmp.get(fieldName);
+				if (fieldName == DataEntry.BLOOD_SUGAR){
+					double temp = (Double)tmp.get(fieldName);
+					if (temp > 0)
+					{
+						avg += temp;
+						c++;
+					}	
+				}
 				else
-					avg += 0.0 + (Integer)tmp.get(fieldName);
+				{	
+					int temp = (Integer)tmp.get(fieldName);
+					if (temp > 0)
+					{
+						avg += 0.0 + temp;
+						c++;
+					}	
+				}
 			}
 		}
 		if (c==0)
@@ -108,11 +120,23 @@ public class Data implements Serializable {
 			today.set(Calendar.DAY_OF_MONTH, i);
 			DataEntry tmp = getEntry(today);
 			if (tmp != null) {
-				c++;
-				if (fieldName == DataEntry.BLOOD_SUGAR)
-					avg += (Double) tmp.get(fieldName);
+				if (fieldName == DataEntry.BLOOD_SUGAR){
+					double temp = (Double)tmp.get(fieldName);
+					if (temp > 0)
+					{
+						avg += temp;
+						c++;
+					}	
+				}
 				else
-					avg += 0.0 + (Integer)tmp.get(fieldName);
+				{	
+					int temp = (Integer)tmp.get(fieldName);
+					if (temp > 0)
+					{
+						avg += 0.0 + temp;
+						c++;
+					}	
+				}
 			}
 		}
 		if (c==0)

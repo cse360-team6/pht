@@ -88,7 +88,7 @@ public class QuotaPanel extends JPanel {
 
 		JPanel textAlertPanel = new JPanel();
 		textAlertPanel.setBounds(10, 277, 280, 83);
-		add(textAlertPanel);
+		//add(textAlertPanel);
 		textAlertPanel.setLayout(new BorderLayout(0, 0));
 
 		JTextPane textAlertPane = new JTextPane();
