@@ -20,12 +20,13 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import org.pht.quota.PHTQuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
 
 public class MainFrame extends JFrame {
 	private JPanel framePanel, personPanel, statusPanel, buttonPanel, /*quotaPanel,*/ centerPanel;
-	private QuotaPanel quotaPanel;
+	private PHTQuotaPanel quotaPanel;
 	private JButton addHealthBtn, addPhysBtn, viewRepBtn, addPersBtn;
 	
 	//components for personPanel
@@ -60,7 +61,7 @@ public class MainFrame extends JFrame {
 		statusPanel = new JPanel();
 		//statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
 		statusPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		String[] status = {"Sleep","Work","Cardio","Strength"};
+		String[] status = {"All","Sleep","Work","Cardio","Strength"};
 		statusCombo = new JComboBox<String>(status);
 		statusCombo.setPreferredSize(new Dimension(100,25));
 		statusLbl = new JLabel("Status For:");
@@ -132,7 +133,7 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(addPhysBtn);
 		buttonPanel.add(viewRepBtn);
 		
-		quotaPanel = new QuotaPanel();
+		quotaPanel = new PHTQuotaPanel();
 		quotaPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		quotaPanel.setPreferredSize(new Dimension(300, 400));
 		//quotaLbl = new JLabel("Quota");

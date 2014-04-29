@@ -1,5 +1,6 @@
 package org.pht.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -28,11 +29,11 @@ public class NewUserFrame extends JFrame{
 	protected Calendar birthday = new GregorianCalendar();
 	protected static JButton add, cancel;
 	private JPanel buttons = new JPanel();
-	private JLabel ageLbl, genderLbl, nameLbl, heightLbl, weightLbl, bdayLbl;
+	private JLabel genderLbl, nameLbl, heightLbl, weightLbl, bdayLbl;
+	private static JLabel notice;
 	private JDateChooser dateChooser;
 	private JTextField nameField;
 	private JComboBox<String> genderCombo;
-	private JComboBox<Integer> ageCombo;
 	private JComboBox<String> heightCombo;
 	private JComboBox<Integer> weightCombo;
 	private String[] genderStr = {"Male", "Female"};
@@ -56,12 +57,13 @@ public class NewUserFrame extends JFrame{
 		buttons.add(cancel);
 		
 		//Add labels for the text fields
-		ageLbl = new JLabel("Age:");
 		genderLbl = new JLabel("Gender:");
 		nameLbl = new JLabel("Name:");
 		heightLbl = new JLabel("Height:");
 		weightLbl = new JLabel("Weight:");
 		bdayLbl = new JLabel("Birth Date:");
+		notice = new JLabel(" ");
+		notice.setForeground(Color.RED);
 		
 		//Add values for ComboBoxes
 		genderCombo = new JComboBox<String>(genderStr);
@@ -69,11 +71,6 @@ public class NewUserFrame extends JFrame{
 		heightCombo = new JComboBox<String>(heightStr);
 		heightCombo.setPreferredSize(new Dimension(100, 25));
 		heightCombo.setSelectedIndex(15);
-		ageCombo = new JComboBox<Integer>();
-		ageCombo.setPreferredSize(new Dimension(100, 25));
-		for (int i = 1; i < 120; i++)
-			ageCombo.addItem(i);
-		ageCombo.setSelectedIndex(17);
 		weightCombo = new JComboBox<Integer>();
 		weightCombo.setPreferredSize(new Dimension(100, 25));
 		for (int i = 60; i < 500; i++)
@@ -98,9 +95,23 @@ public class NewUserFrame extends JFrame{
 					int heightInch = (feet * 12) + inch;
 					int weight = (int)weightCombo.getSelectedItem();
 					String height = (String)heightCombo.getSelectedItem().toString();
-					String name = nameField.getText();
-					int age = (int)ageCombo.getSelectedItem();
+					String name = "";
+					if (!nameField.getText().equals("")){
+						name = nameField.getText();}
+					else
+					{
+						notice.setText("Error: Please Enter a Name");
+						return;
+					}
 					String gender = genderCombo.getSelectedItem().toString();
+					String birthDay = dateChooser.getDateFormatString();
+					if (dateChooser.getCalendar() == null){
+						notice.setText("Error: Please Select Birth Date");
+						return;
+					}
+					//Use a simple algorithm to calculate age... is approximate and not exact
+					int age = Calendar.getInstance().get(Calendar.YEAR) - dateChooser.getCalendar().get(Calendar.YEAR);
+					dispose();
             		}
 				}
 			}
@@ -120,9 +131,9 @@ public class NewUserFrame extends JFrame{
 		add(setTwoComponents(nameLbl, nameField));
 		add(setTwoComponents(bdayLbl, dateChooser));
 		add(setTwoComponents(genderLbl, genderCombo));
-		add(setTwoComponents(ageLbl, ageCombo));
 		add(setTwoComponents(heightLbl, heightCombo));
 		add(setTwoComponents(weightLbl, weightCombo));
+		add(notice);
 		add(buttons);
 		
 		setSize(250, 300);	
