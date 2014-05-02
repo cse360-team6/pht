@@ -85,10 +85,12 @@ public class EditQuotaFrame extends JFrame {
 					cardio = new Integer (EditQuotaFrame.txtCardioGoal.getText());
 					work = new Integer (EditQuotaFrame.txtWorkGoal.getText());
 					sleep = new Integer (EditQuotaFrame.txtSleepGoal.getText());
-					PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars(strength,cardio,work,sleep);
-					PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars(
-	            			PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
-	            					PersonalHealthTracker.getMainFrame().getCurrentUser()));
+					PersonalHealthTracker.getMainFrame().getQuotaPanel().updateUser(
+							PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
+									PersonalHealthTracker.getMainFrame().getCurrentUser()));
+					PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressMaxes(strength,cardio,work,sleep);
+					PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars();
+
 					dispose();
 				} catch (NumberFormatException e1) {
 					notice.setText("Error: Please Enter Integers");

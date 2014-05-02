@@ -98,9 +98,10 @@ public class PhysicalActivityFrame extends ActivityFrame {
 		            				de.setSleepHours(de.getSleepHours() + totalMin);
 	        					break;
             			}	            	
-		            	PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars(
-		            			PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
-		            					PersonalHealthTracker.getMainFrame().getCurrentUser()));
+		            	PersonalHealthTracker.getMainFrame().getQuotaPanel().updateUser(
+								PersonalHealthTracker.getMainFrame().getUsers().getUsers().get(
+										PersonalHealthTracker.getMainFrame().getCurrentUser()));
+		            	PersonalHealthTracker.getMainFrame().getQuotaPanel().updateProgressBars();
 		            	PersonalHealthTracker.getMainFrame().updateChart();
 		            	dispose();
 

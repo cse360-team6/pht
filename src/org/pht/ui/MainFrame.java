@@ -273,6 +273,8 @@ public class MainFrame extends JFrame {
 		chartPanel = new XChartPanel(chart);
 		summaryPanel.removeAll();
 		summaryPanel.add(chartPanel);
+		getQuotaPanel().updateUser(getUsers().getUsers().get(getCurrentUser()));
+		getQuotaPanel().updateProgressBars();
 		revalidate();
 		repaint();
 	}

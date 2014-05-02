@@ -20,6 +20,7 @@ import javax.swing.JTextPane;
 
 import org.pht.PersonalHealthTracker;
 import org.pht.user.User;
+import org.pht.user.data.Quota;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -32,7 +33,6 @@ public class QuotaPanel extends JPanel {
 	JProgressBar strengthBar, cardioBar, workBar, sleepBar;
 
 	private User user;
-	private JButton editButton;
 	private EditQuotaFrame edit;
 
 	public QuotaPanel() {
@@ -111,24 +111,31 @@ public class QuotaPanel extends JPanel {
 
 	}
 
-	public void updateProgressBars(User user) {
-		this.user = user;
+	public void updateProgressBars() {
+		if (this.user == null) return;
 		this.user.getQuota().setWeeklyProgress(this.user.getData());
+		this.cardioBar.setMaximum((int) (this.user.getQuota().getCardioGoal()));
+		this.strengthBar.setMaximum((int) (this.user.getQuota().getStrengthGoal()));
+		this.workBar.setMaximum((int) (this.user.getQuota().getWorkGoal()));
+		this.sleepBar.setMaximum((int) (this.user.getQuota().getSleepGoal()));
 		this.cardioBar.setValue((int) (user.getQuota().getCardioWeeklyProgress()/60.0));
 		this.strengthBar.setValue((int) (user.getQuota().getStrengthWeeklyProgress()/60.0));
 		this.workBar.setValue((int) (user.getQuota().getWorkWeeklyProgress()/60.0));
 		this.sleepBar.setValue((int) (user.getQuota().getSleepWeeklyProgress()/60.0));
-		System.out.println(user.getQuota().getCardioWeeklyProgress()/60.0);
 		revalidate();
 		repaint();
 	}
 	
-	public void updateProgressBars(int cgoal, int sgoal, int wgoal, int sleepgoal) {
-		this.cardioBar.setMaximum(cgoal);
-		this.strengthBar.setMaximum(sgoal);
-		this.workBar.setMaximum(wgoal);
-		this.sleepBar.setMaximum(sleepgoal);
+	public void updateProgressMaxes(int cgoal, int strgoal, int wgoal, int sleepgoal) {
+		this.user.getQuota().setCardioGoal(cgoal);
+		this.user.getQuota().setStrengthGoal(strgoal);;
+		this.user.getQuota().setWorkGoal(wgoal);
+		this.user.getQuota().setSleepGoal(sleepgoal);
 		revalidate();
 		repaint();
+	}
+
+	public void updateUser(User currentUser) {
+		this.user = currentUser;
 	}
 }
