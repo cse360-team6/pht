@@ -52,12 +52,12 @@ public class HealthActivityFrame extends ActivityFrame {
 	            	//If the user is entering Blood Pressure
 	            	if(((String) activities.getSelectedItem()).equals(healthInformation[0])) {
 	            		addBloodPressure();
-	            	}
+	            	} else
      	
 	            	//If the user is entering Blood Sugar
 	            	if(((String) activities.getSelectedItem()).equals(healthInformation[1])) {
 	            		addBloodSugar();
-	            	}
+	            	} else
 	            	
 	            	//If the user is entering Heart Rate
 	            	if(((String) activities.getSelectedItem()).equals(healthInformation[2])) {
