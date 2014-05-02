@@ -2,7 +2,6 @@ package org.pht.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -18,9 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -30,12 +27,10 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-import org.pht.PersonalHealthTracker;
 import org.pht.ui.QuotaPanel;
 import org.pht.ui.activity.HealthActivityFrame;
 import org.pht.ui.activity.PhysicalActivityFrame;
 import org.pht.ui.activity.ViewReportFrame;
-import org.pht.user.User;
 import org.pht.user.Users;
 import org.pht.user.data.Data;
 import org.pht.user.data.DataEntry;
@@ -59,9 +54,6 @@ public class MainFrame extends JFrame {
 	
 	//components for statusPanel
 	private JLabel statusLbl;
-	
-	//components for quotaPanel
-	private JLabel quotaLbl;
 	
 	private PhysicalActivityFrame paFrame;
 	private HealthActivityFrame haFrame;

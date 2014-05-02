@@ -33,6 +33,7 @@ public class PhysicalActivityFrame extends ActivityFrame {
 	private static JScrollPane memoSPane;
 	private static JDateChooser dateChooser;
 	private static JLabel dateLbl;	
+	private static TimerFrame timerFrame;
 
     // Constructors
     public PhysicalActivityFrame() {
@@ -131,7 +132,7 @@ public class PhysicalActivityFrame extends ActivityFrame {
 		dateChooser = new JDateChooser();
 		dateLbl = new JLabel("Date:");
 		notice = new JLabel(" ");	
-				
+		
 		dateChooser.setPreferredSize(new Dimension(160, 30));
 		hours.setPreferredSize(new Dimension(60, 20));
 		minutes.setPreferredSize(new Dimension(60, 20));
@@ -142,13 +143,37 @@ public class PhysicalActivityFrame extends ActivityFrame {
 		
 		//Add each field to the JPanel to be returned by the function
 		physicalComponent.add(hours);
-		physicalComponent.add(minutes);
+		physicalComponent.add(minutes);		
+		TimerListener tL = new TimerListener(hours, minutes);
+		timer.addActionListener(tL);
 		physicalComponent.add(timer);
 		physicalComponent.add(memoSPane);
 		physicalComponent.add(setTwoComponents(dateLbl, dateChooser));
 		physicalComponent.add(notice);
 		
 		return physicalComponent;
+    }
+    
+    static class TimerListener implements ActionListener {
+    	
+    	private JTextField hours, minutes;
+    	
+    	public TimerListener(JTextField h, JTextField m) {
+    		hours = h;
+    		minutes = m;
+    	}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (timerFrame == null || !timerFrame.isVisible())	{ 
+				timerFrame = new TimerFrame(hours, minutes);
+				timerFrame.pack();
+				timerFrame.setVisible(true);
+				timerFrame.setLocationRelativeTo(physicalComponent);
+        	} else {
+        		timerFrame.toFront();
+            }
+		}
     }
 
     //Accessors
